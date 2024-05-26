@@ -5,13 +5,27 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] NavMeshAgent agent;
     [SerializeField] GameObject target;
-    void Start()
-    {
-    }
+    [SerializeField] LayerMask _payloadLayer;
+    [SerializeField] float _fireRange;
+    [SerializeField] GameObject _bullet;
+    [SerializeField] float _fireRate;
 
-    // Update is called once per frame
     void Update()
     {
         agent.destination = target.transform.position;
+    }
+
+    public void CheckRange()
+    {
+       if(Physics.CheckSphere(transform.position, _fireRange, _payloadLayer))
+        {
+            transform.Rotate(target.transform.position);
+            Invoke("Fire", _fireRate);
+        }
+    }
+
+    public void Fire()
+    {
+        Instantiate(_bullet);
     }
 }

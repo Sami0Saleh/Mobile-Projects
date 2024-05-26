@@ -7,7 +7,7 @@
       "RelativeMoniker": "D:0:0:{02CD4BA2-E654-52CB-C6B9-B6BBD775FF39}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{02CD4BA2-E654-52CB-C6B9-B6BBD775FF39}|Assembly-CSharp.csproj|c:\\users\\ratch\\onedrive\\desktop\\mobile-projects\\pd mobile game\\assets\\scripts\\newplayercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{02CD4BA2-E654-52CB-C6B9-B6BBD775FF39}|Assembly-CSharp.csproj|C:\\Users\\ratch\\OneDrive\\Desktop\\Mobile-Projects\\PD Mobile Game\\assets\\scripts\\newplayercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{02CD4BA2-E654-52CB-C6B9-B6BBD775FF39}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\newplayercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -30,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
@@ -47,6 +47,10 @@
               "EditorCaption": ""
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Enemy.cs",
@@ -54,14 +58,10 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\Enemy.cs",
               "ToolTip": "C:\\Users\\ratch\\OneDrive\\Desktop\\Mobile-Projects\\PD Mobile Game\\Assets\\Scripts\\Enemy.cs",
               "RelativeToolTip": "Assets\\Scripts\\Enemy.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAA2AAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-25T15:11:31.164Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Document",
@@ -73,7 +73,8 @@
               "RelativeToolTip": "Assets\\Scripts\\Bullet.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAA6AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-25T14:46:11.723Z"
+              "WhenOpened": "2024-05-25T14:46:11.723Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",

@@ -347,17 +347,6 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &367255190 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5517038532902368662, guid: d94b6c3adedb282409fcb59cb49d45bb, type: 3}
-  m_PrefabInstance: {fileID: 2129731862}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cbec2e77c7bfc94aac512578eee1432, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1262,14 +1251,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8177a757f8d090442b6ef4527018df3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerController: {fileID: 2129731865}
-  _barrel: {fileID: 367255190}
-  _bulletRange: 0
-  FireRate: 0
-  _isAutomatic: 0
-  _ammoLeft: 1
-  _canShoot: 0
-  _readyToShoot: 0
 --- !u!1001 &2127188845
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1485,6 +1466,46 @@ PrefabInstance:
       propertyPath: Direction.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2256639755147019601, guid: cd631a55792ee4548b45b6c539b25fa2, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3370479593525536454, guid: cd631a55792ee4548b45b6c539b25fa2, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3827843993102457018, guid: cd631a55792ee4548b45b6c539b25fa2, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4172152052956893193, guid: cd631a55792ee4548b45b6c539b25fa2, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5030973621689898698, guid: cd631a55792ee4548b45b6c539b25fa2, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5321885737445796408, guid: cd631a55792ee4548b45b6c539b25fa2, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6161943544204443008, guid: cd631a55792ee4548b45b6c539b25fa2, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6630958711967106990, guid: cd631a55792ee4548b45b6c539b25fa2, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7310784836389078851, guid: cd631a55792ee4548b45b6c539b25fa2, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7392152816247604471, guid: cd631a55792ee4548b45b6c539b25fa2, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 8308919732350543377, guid: cd631a55792ee4548b45b6c539b25fa2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12.896
@@ -1528,6 +1549,10 @@ PrefabInstance:
     - target: {fileID: 8648290990237203627, guid: cd631a55792ee4548b45b6c539b25fa2, type: 3}
       propertyPath: m_Name
       value: Payload
+      objectReference: {fileID: 0}
+    - target: {fileID: 8648290990237203627, guid: cd631a55792ee4548b45b6c539b25fa2, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1598,6 +1623,22 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 494624492}
+    - target: {fileID: 7720263831092138066, guid: 57997df12e1de9942ab6db82f952edd0, type: 3}
+      propertyPath: _bullet
+      value: 
+      objectReference: {fileID: 1864957201234917961, guid: 4bef1e6b2350ecc4fa0cc3d81d6f5681, type: 3}
+    - target: {fileID: 7720263831092138066, guid: 57997df12e1de9942ab6db82f952edd0, type: 3}
+      propertyPath: _fireRate
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7720263831092138066, guid: 57997df12e1de9942ab6db82f952edd0, type: 3}
+      propertyPath: _fireRange
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7720263831092138066, guid: 57997df12e1de9942ab6db82f952edd0, type: 3}
+      propertyPath: _payloadLayer.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
