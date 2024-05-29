@@ -1,25 +1,25 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\ratch\\OneDrive\\Desktop\\Mobile-Projects\\PD Mobile Game\\",
+  "WorkspaceRootPath": "C:\\Users\\samis\\OneDrive\\Desktop\\Mobile-Projects\\PD Mobile Game\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{02CD4BA2-E654-52CB-C6B9-B6BBD775FF39}|Assembly-CSharp.csproj|c:\\users\\ratch\\onedrive\\desktop\\mobile-projects\\pd mobile game\\assets\\scripts\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{02CD4BA2-E654-52CB-C6B9-B6BBD775FF39}|Assembly-CSharp.csproj|c:\\users\\samis\\onedrive\\desktop\\mobile-projects\\pd mobile game\\assets\\scripts\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{02CD4BA2-E654-52CB-C6B9-B6BBD775FF39}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{02CD4BA2-E654-52CB-C6B9-B6BBD775FF39}|Assembly-CSharp.csproj|C:\\Users\\ratch\\OneDrive\\Desktop\\Mobile-Projects\\PD Mobile Game\\assets\\scripts\\newplayercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{02CD4BA2-E654-52CB-C6B9-B6BBD775FF39}|Assembly-CSharp.csproj|C:\\Users\\samis\\OneDrive\\Desktop\\Mobile-Projects\\PD Mobile Game\\assets\\scripts\\newplayercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{02CD4BA2-E654-52CB-C6B9-B6BBD775FF39}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\newplayercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{02CD4BA2-E654-52CB-C6B9-B6BBD775FF39}|Assembly-CSharp.csproj|C:\\Users\\ratch\\OneDrive\\Desktop\\Mobile-Projects\\PD Mobile Game\\assets\\scripts\\bullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{02CD4BA2-E654-52CB-C6B9-B6BBD775FF39}|Assembly-CSharp.csproj|C:\\Users\\samis\\OneDrive\\Desktop\\Mobile-Projects\\PD Mobile Game\\assets\\scripts\\bullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{02CD4BA2-E654-52CB-C6B9-B6BBD775FF39}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\bullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{02CD4BA2-E654-52CB-C6B9-B6BBD775FF39}|Assembly-CSharp.csproj|C:\\Users\\ratch\\OneDrive\\Desktop\\Mobile-Projects\\PD Mobile Game\\assets\\scripts\\payloadweapon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{02CD4BA2-E654-52CB-C6B9-B6BBD775FF39}|Assembly-CSharp.csproj|C:\\Users\\samis\\OneDrive\\Desktop\\Mobile-Projects\\PD Mobile Game\\assets\\scripts\\payloadweapon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{02CD4BA2-E654-52CB-C6B9-B6BBD775FF39}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\payloadweapon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{02CD4BA2-E654-52CB-C6B9-B6BBD775FF39}|Assembly-CSharp.csproj|C:\\Users\\ratch\\OneDrive\\Desktop\\Mobile-Projects\\PD Mobile Game\\assets\\scripts\\payload.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{02CD4BA2-E654-52CB-C6B9-B6BBD775FF39}|Assembly-CSharp.csproj|C:\\Users\\samis\\OneDrive\\Desktop\\Mobile-Projects\\PD Mobile Game\\assets\\scripts\\payload.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{02CD4BA2-E654-52CB-C6B9-B6BBD775FF39}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\payload.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -30,35 +30,30 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "NewPlayerController.cs",
-              "DocumentMoniker": "C:\\Users\\ratch\\OneDrive\\Desktop\\Mobile-Projects\\PD Mobile Game\\Assets\\Scripts\\NewPlayerController.cs",
+              "DocumentMoniker": "C:\\Users\\samis\\OneDrive\\Desktop\\Mobile-Projects\\PD Mobile Game\\Assets\\Scripts\\NewPlayerController.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\NewPlayerController.cs",
-              "ToolTip": "C:\\Users\\ratch\\OneDrive\\Desktop\\Mobile-Projects\\PD Mobile Game\\Assets\\Scripts\\NewPlayerController.cs",
+              "ToolTip": "C:\\Users\\samis\\OneDrive\\Desktop\\Mobile-Projects\\PD Mobile Game\\Assets\\Scripts\\NewPlayerController.cs",
               "RelativeToolTip": "Assets\\Scripts\\NewPlayerController.cs",
               "ViewState": "AQIAAC0AAAAAAAAAAAAYwFMAAAAcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-25T11:13:57.918Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+              "IsPinned": true
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Enemy.cs",
-              "DocumentMoniker": "C:\\Users\\ratch\\OneDrive\\Desktop\\Mobile-Projects\\PD Mobile Game\\Assets\\Scripts\\Enemy.cs",
+              "DocumentMoniker": "C:\\Users\\samis\\OneDrive\\Desktop\\Mobile-Projects\\PD Mobile Game\\Assets\\Scripts\\Enemy.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Enemy.cs",
-              "ToolTip": "C:\\Users\\ratch\\OneDrive\\Desktop\\Mobile-Projects\\PD Mobile Game\\Assets\\Scripts\\Enemy.cs",
+              "ToolTip": "C:\\Users\\samis\\OneDrive\\Desktop\\Mobile-Projects\\PD Mobile Game\\Assets\\Scripts\\Enemy.cs",
               "RelativeToolTip": "Assets\\Scripts\\Enemy.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAlAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-25T15:11:31.164Z",
               "EditorCaption": ""
@@ -67,22 +62,21 @@
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "Bullet.cs",
-              "DocumentMoniker": "C:\\Users\\ratch\\OneDrive\\Desktop\\Mobile-Projects\\PD Mobile Game\\Assets\\Scripts\\Bullet.cs",
+              "DocumentMoniker": "C:\\Users\\samis\\OneDrive\\Desktop\\Mobile-Projects\\PD Mobile Game\\Assets\\Scripts\\Bullet.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Bullet.cs",
-              "ToolTip": "C:\\Users\\ratch\\OneDrive\\Desktop\\Mobile-Projects\\PD Mobile Game\\Assets\\Scripts\\Bullet.cs",
+              "ToolTip": "C:\\Users\\samis\\OneDrive\\Desktop\\Mobile-Projects\\PD Mobile Game\\Assets\\Scripts\\Bullet.cs",
               "RelativeToolTip": "Assets\\Scripts\\Bullet.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAA6AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-25T14:46:11.723Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-25T14:46:11.723Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
               "Title": "Payload.cs",
-              "DocumentMoniker": "C:\\Users\\ratch\\OneDrive\\Desktop\\Mobile-Projects\\PD Mobile Game\\Assets\\Scripts\\Payload.cs",
+              "DocumentMoniker": "C:\\Users\\samis\\OneDrive\\Desktop\\Mobile-Projects\\PD Mobile Game\\Assets\\Scripts\\Payload.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Payload.cs",
-              "ToolTip": "C:\\Users\\ratch\\OneDrive\\Desktop\\Mobile-Projects\\PD Mobile Game\\Assets\\Scripts\\Payload.cs",
+              "ToolTip": "C:\\Users\\samis\\OneDrive\\Desktop\\Mobile-Projects\\PD Mobile Game\\Assets\\Scripts\\Payload.cs",
               "RelativeToolTip": "Assets\\Scripts\\Payload.cs",
               "ViewState": "AQIAABwAAAAAAAAAAAAIwCwAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -92,9 +86,9 @@
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "PayloadWeapon.cs",
-              "DocumentMoniker": "C:\\Users\\ratch\\OneDrive\\Desktop\\Mobile-Projects\\PD Mobile Game\\Assets\\Scripts\\PayloadWeapon.cs",
+              "DocumentMoniker": "C:\\Users\\samis\\OneDrive\\Desktop\\Mobile-Projects\\PD Mobile Game\\Assets\\Scripts\\PayloadWeapon.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\PayloadWeapon.cs",
-              "ToolTip": "C:\\Users\\ratch\\OneDrive\\Desktop\\Mobile-Projects\\PD Mobile Game\\Assets\\Scripts\\PayloadWeapon.cs",
+              "ToolTip": "C:\\Users\\samis\\OneDrive\\Desktop\\Mobile-Projects\\PD Mobile Game\\Assets\\Scripts\\PayloadWeapon.cs",
               "RelativeToolTip": "Assets\\Scripts\\PayloadWeapon.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
