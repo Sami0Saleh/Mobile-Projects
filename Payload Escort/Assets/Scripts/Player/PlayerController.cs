@@ -69,6 +69,31 @@ public class PlayerController : MonoBehaviour
     }
     public void Move()
     {
+
+        /* float horizontalInput = Input.GetAxis("Horizontal");
+         float verticalInput = Input.GetAxis("Vertical");
+
+         _moveDirection = new Vector3(horizontalInput, 0f, verticalInput).normalized;
+
+         if (_moveDirection.magnitude > 0)
+         {
+             _moveDirection.Normalize();
+         }
+         if (_moveDirection != Vector3.zero)
+         {
+             _isMoving = true;
+             Quaternion targetRotation = Quaternion.LookRotation(_moveDirection);
+             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+             _anim.SetBool("isFWD", true);
+         }
+         else
+         {
+             _isMoving = false;
+             _anim.SetBool("isFWD", false);
+         }
+         Vector3 movement = _moveDirection * _moveSpeed * Time.deltaTime;
+         transform.Translate(movement, Space.World);*/
+
         Vector3 inputDirection = new Vector3(_joystick.Horizontal, 0f, _joystick.Vertical);
         if (inputDirection.magnitude > 0)
         {

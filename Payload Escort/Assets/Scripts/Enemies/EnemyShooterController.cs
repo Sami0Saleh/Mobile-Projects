@@ -1,20 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
-using static UnityEngine.GraphicsBuffer;
 
 public class EnemyShooterController : MonoBehaviour, IEnemy
 {
-    private Transform _payloadTransform;
+    private Transform _playerTransform;
+    private GameObject _payloadTarget;
     private PlayerController _playerController;
     [SerializeField] Animator animator;
     [SerializeField] GameObject _droppableObjectPrefab;
     [SerializeField] EnemyWeapon _enemyWeapon;
     [SerializeField] LayerMask obstacleLayer;
-    [SerializeField] NavMeshAgent agent;
-    [SerializeField] GameObject target;
-    [SerializeField] LayerMask _payloadLayer;
+
     private int _maxHp = 7;
     public int _currentHp;
     public int Damage = 7;
@@ -32,13 +29,12 @@ public class EnemyShooterController : MonoBehaviour, IEnemy
     }
     private void Update()
     {
-        agent.destination = target.transform.position;
-        /*if (!PlayerController.IsplayerDead)
+        if (!PlayerController.IsplayerDead)
         {
             enemeyState();
-        }*/
+        }
     }
-    /*private void enemeyState()
+    private void enemeyState()
     {
         if (!isPlayerDetected)
         {
@@ -48,7 +44,7 @@ public class EnemyShooterController : MonoBehaviour, IEnemy
         {
             MoveTowardsPlayer();
         }
-    }*/
+    }
     public void DetectPlayer()
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRange);
@@ -65,12 +61,12 @@ public class EnemyShooterController : MonoBehaviour, IEnemy
     public void MoveTowardsPlayer()
     {
         // Rotate towards the player
-        Vector3 direction = (_payloadTransform.transform.position - transform.position).normalized;
+        Vector3 direction = (_playerTransform.transform.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
 
         // Move towards the player
-        float distanceToPlayer = Vector3.Distance(transform.position, _payloadTransform.transform.position);
+        float distanceToPlayer = Vector3.Distance(transform.position, _playerTransform.transform.position);
         if (distanceToPlayer > attackRange)
         {
             // Check for obstacles in front of the enemy
@@ -81,7 +77,7 @@ public class EnemyShooterController : MonoBehaviour, IEnemy
         }
         else
         {
-            if (_payloadTransform != null)
+            if (_playerTransform != null)
             {
                 RangeAttackPlayer();
             }
@@ -130,7 +126,7 @@ public class EnemyShooterController : MonoBehaviour, IEnemy
         for (int i = 0; i < numObjectsToDrop; i++)
         {
             
-            Vector3 dropPosition = new Vector3(transform.position.x + Random.Range(0.01f, 0.3f), -0.461f, transform.position.z + Random.Range(0.01f,0.3f));
+            Vector3 dropPosition = new Vector3(transform.position.x + Random.Range(0.01f, 0.3f), 0f, transform.position.z + Random.Range(0.01f,0.3f));
             Instantiate(_droppableObjectPrefab, dropPosition, Quaternion.identity);
         }
     }
@@ -147,8 +143,13 @@ public class EnemyShooterController : MonoBehaviour, IEnemy
         _playerController = player;
     }
 
-    public void SetPlayerTransform(Transform payloadTransform)
+    public void SetPlayerTransform(Transform playerTransform)
     {
-        _payloadTransform = payloadTransform;
+        _playerTransform = playerTransform;
+    }
+
+    public void SetPayloadTarget(GameObject payloadTarget)
+    {
+        _payloadTarget = payloadTarget;
     }
 }

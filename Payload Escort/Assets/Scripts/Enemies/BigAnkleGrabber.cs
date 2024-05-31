@@ -5,7 +5,8 @@ using UnityEngine;
 public class BigAnkleGrabber : MonoBehaviour, IEnemy
 {
     [SerializeField] GameObject _littelAnkleGrabberPrefab;
-    private Transform _payloadTransform;
+    private Transform _playerTransform;
+    private GameObject _payloadTarget;
     private PlayerController _playerController;
     [SerializeField] Animator animator;
     [SerializeField] LayerMask _player;
@@ -67,12 +68,12 @@ public class BigAnkleGrabber : MonoBehaviour, IEnemy
     public void MoveTowardsPlayer()
     {
         // Rotate towards the player
-        Vector3 direction = (_payloadTransform.position - transform.position).normalized;
+        Vector3 direction = (_playerTransform.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
 
         // Move towards the player
-        float distanceToPlayer = Vector3.Distance(transform.position, _payloadTransform.position);
+        float distanceToPlayer = Vector3.Distance(transform.position, _playerTransform.position);
         if (distanceToPlayer > attackRange)
         {
             // Check for obstacles in front of the enemy
@@ -83,7 +84,7 @@ public class BigAnkleGrabber : MonoBehaviour, IEnemy
         }
         else
         {
-            if (_payloadTransform != null)
+            if (_playerTransform != null)
             {
                 if (!_BiteSound.isPlaying)
                 {
@@ -151,8 +152,13 @@ public class BigAnkleGrabber : MonoBehaviour, IEnemy
         _playerController = player;
     }
 
-    public void SetPlayerTransform(Transform payloadTransform)
+    public void SetPlayerTransform(Transform playerTransform)
     {
-        _payloadTransform = payloadTransform;
+        _playerTransform = playerTransform;
+    }
+
+    public void SetPayloadTarget(GameObject payloadTarget)
+    {
+        _payloadTarget = payloadTarget;
     }
 }

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class EnemyGrenadeController : MonoBehaviour, IEnemy
 {
-    public Transform _payloadTransform;
+    public Transform PlayerTransform;
+    public GameObject PayloadTarget;
     private PlayerController _playerController;
     [SerializeField] EnemyWeaponGrenade _enemyWeaponGrenade;
     [SerializeField] Animator animator;
@@ -60,12 +61,12 @@ public class EnemyGrenadeController : MonoBehaviour, IEnemy
     public void MoveTowardsPlayer()
     {
         // Rotate towards the player
-        Vector3 direction = (_payloadTransform.position - transform.position).normalized;
+        Vector3 direction = (PlayerTransform.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
 
         // Move towards the player
-        float distanceToPlayer = Vector3.Distance(transform.position, _payloadTransform.position);
+        float distanceToPlayer = Vector3.Distance(transform.position, PlayerTransform.position);
         if (distanceToPlayer > attackRange)
         {
             // Check for obstacles in front of the enemy
@@ -76,7 +77,7 @@ public class EnemyGrenadeController : MonoBehaviour, IEnemy
         }
         else
         {
-            if (_payloadTransform != null)
+            if (PlayerTransform != null)
             {
                 ShootGrenade();
             }
@@ -132,7 +133,7 @@ public class EnemyGrenadeController : MonoBehaviour, IEnemy
         for (int i = 0; i < numObjectsToDrop; i++)
         {
 
-            Vector3 dropPosition = new Vector3(transform.position.x + Random.Range(0.01f, 0.3f), -0.461f, transform.position.z + Random.Range(0.01f, 0.3f));
+            Vector3 dropPosition = new Vector3(transform.position.x + Random.Range(0.01f, 0.3f), 0f, transform.position.z + Random.Range(0.01f, 0.3f));
             Instantiate(_droppableObjectPrefab, dropPosition, Quaternion.identity);
         }
     }
@@ -148,8 +149,13 @@ public class EnemyGrenadeController : MonoBehaviour, IEnemy
         _playerController = player;
     }
 
-    public void SetPlayerTransform(Transform payloadTransform)
+    public void SetPlayerTransform(Transform playerTransform)
     {
-        _payloadTransform = payloadTransform;
+        PlayerTransform = playerTransform;
+    }
+
+    public void SetPayloadTarget(GameObject payloadTarget)
+    {
+        PayloadTarget = payloadTarget;
     }
 }

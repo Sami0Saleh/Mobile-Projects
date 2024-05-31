@@ -8,7 +8,8 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField] List<IEnemy> _enemies = new List<IEnemy>();
     [SerializeField] PlayerController _playerController;
-    [SerializeField] Transform _payloadTransform;
+    [SerializeField] Transform _playerTransform;
+    [SerializeField] GameObject _payloadTarget;
 
     private void Awake()
     {
@@ -20,7 +21,8 @@ public class EnemyController : MonoBehaviour
         foreach (var enemy in _enemies)
         {
             enemy.SetPlayer(_playerController);
-            enemy.SetPlayerTransform(_payloadTransform);
+            enemy.SetPlayerTransform(_playerTransform);
+            enemy.SetPayloadTarget(_payloadTarget);
         }
     }
 

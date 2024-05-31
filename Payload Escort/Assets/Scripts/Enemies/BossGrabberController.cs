@@ -6,7 +6,8 @@ public class BossGrabberController : MonoBehaviour, IEnemy
 {
     [SerializeField] GameObject _BigAnkleGrabberPrefab;
     private Transform _playerTransform;
-    private PlayerController _payloadController;
+    private GameObject _payloadTarget;
+    private PlayerController _playerController;
     [SerializeField] Animator animator;
     [SerializeField] LayerMask _player;
     [SerializeField] LayerMask obstacleLayer;
@@ -129,30 +130,35 @@ public class BossGrabberController : MonoBehaviour, IEnemy
     {
         if (collision.gameObject.tag == "Player")
         {
-            _payloadController.TakeMeleeDamage(Damage);
+            _playerController.TakeMeleeDamage(Damage);
         }
     }
     private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            _payloadController.TakeMeleeDamage(Damage);
+            _playerController.TakeMeleeDamage(Damage);
         }
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "bullet")
         {
-            GotHit(_payloadController.Damage);
+            GotHit(_playerController.Damage);
         }
     }
     public void SetPlayer(PlayerController player)
     {
-        _payloadController = player;
+        _playerController = player;
     }
 
-    public void SetPlayerTransform(Transform payloadTransform)
+    public void SetPlayerTransform(Transform playerTransform)
     {
-        _playerTransform = payloadTransform;
+        _playerTransform = playerTransform;
+    }
+
+    public void SetPayloadTarget(GameObject payloadTarget)
+    {
+        _payloadTarget = payloadTarget;
     }
 }

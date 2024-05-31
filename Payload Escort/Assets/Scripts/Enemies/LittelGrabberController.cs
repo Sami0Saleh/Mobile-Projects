@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class LittelGrabberController : MonoBehaviour, IEnemy
 {
-    private Transform _payloadTransform;
+    private Transform _playerTransform;
+    private GameObject _payloadTarget;
     private PlayerController _playerController;
     [SerializeField] Animator animator;
     [SerializeField] LayerMask _player;
@@ -65,12 +66,12 @@ public class LittelGrabberController : MonoBehaviour, IEnemy
     public void MoveTowardsPlayer()
     {
         // Rotate towards the player
-        Vector3 direction = (_payloadTransform.position - transform.position).normalized;
+        Vector3 direction = (_playerTransform.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
 
         // Move towards the player
-        float distanceToPlayer = Vector3.Distance(transform.position, _payloadTransform.position);
+        float distanceToPlayer = Vector3.Distance(transform.position, _playerTransform.position);
         if (distanceToPlayer > attackRange)
         {
             // Check for obstacles in front of the enemy
@@ -81,7 +82,7 @@ public class LittelGrabberController : MonoBehaviour, IEnemy
         }
         else
         {
-            if (_payloadTransform != null)
+            if (_playerTransform != null)
             {
                 isAttackFinished = false;
                 animator.SetBool("isAttacking", true);
@@ -118,7 +119,7 @@ public class LittelGrabberController : MonoBehaviour, IEnemy
         for (int i = 0; i < numObjectsToDrop; i++)
         {
 
-            Vector3 dropPosition = new Vector3(transform.position.x + Random.Range(0.01f, 0.3f), -0.461f, transform.position.z + Random.Range(0.01f, 0.3f));
+            Vector3 dropPosition = new Vector3(transform.position.x + Random.Range(0.01f, 0.3f), 0f, transform.position.z + Random.Range(0.01f, 0.3f));
             Instantiate(_droppableObjectPrefab, dropPosition, Quaternion.identity);
         }
     }
@@ -154,8 +155,13 @@ public class LittelGrabberController : MonoBehaviour, IEnemy
         _playerController = player;
     }
 
-    public void SetPlayerTransform(Transform payloadTransform)
+    public void SetPlayerTransform(Transform playerTransform)
     {
-        _payloadTransform = payloadTransform;
+        _playerTransform = playerTransform;
+    }
+
+    public void SetPayloadTarget(GameObject payloadTarget)
+    {
+        _payloadTarget = payloadTarget;
     }
 }

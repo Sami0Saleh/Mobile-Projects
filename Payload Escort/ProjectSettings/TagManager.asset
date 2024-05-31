@@ -12,6 +12,7 @@ TagManager:
   - path
   - right
   - left
+  - payload
   layers:
   - Default
   - TransparentFX
