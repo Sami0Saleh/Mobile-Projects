@@ -6,7 +6,7 @@ public class UpgradeSpawner : MonoBehaviour
 {
     public UpgradeItem[] upgradeItems;
     public int numberOfUpgradesToSpawn = 3;
-    [SerializeField] PlayerController _playerController;
+    [SerializeField] PlayerStats _playerStats;
     [SerializeField] LevelUIManager _levelUIManager;
     private int _index1 = -1;
     private int _index2 = -1;
@@ -22,9 +22,9 @@ public class UpgradeSpawner : MonoBehaviour
                 Vector3 randomPosition = transform.position;
                 GameObject upgradePrefab = Instantiate(upgradeItems[randomIndex].prefab, randomPosition, Quaternion.identity);
                 upgradePrefab.transform.SetParent(transform, true);
-                if (_playerController != null)
+                if (_playerStats != null)
                 {
-                    upgradeItems[randomIndex].SetPlayer(_playerController);
+                    upgradeItems[randomIndex].SetPlayer(_playerStats);
                     //upgradeItems[randomIndex].SetUIManager(_levelUIManager);
                 }
                 _index1 = randomIndex;
@@ -36,9 +36,9 @@ public class UpgradeSpawner : MonoBehaviour
                 Vector3 randomPosition = new Vector3(randomX, transform.position.y, transform.position.z);
                 GameObject upgradePrefab = Instantiate(upgradeItems[randomIndex].prefab, randomPosition, Quaternion.identity);
                 upgradePrefab.transform.SetParent(transform, true);
-                if (_playerController != null)
+                if (_playerStats != null)
                 {
-                    upgradeItems[randomIndex].SetPlayer(_playerController);
+                    upgradeItems[randomIndex].SetPlayer(_playerStats);
                     //upgradeItems[randomIndex].SetUIManager(_levelUIManager);
                 }
                 _index2 = randomIndex;
@@ -49,9 +49,9 @@ public class UpgradeSpawner : MonoBehaviour
                 Vector3 randomPosition = new Vector3(randomX, transform.position.y, transform.position.z);
                 GameObject upgradePrefab = Instantiate(upgradeItems[randomIndex].prefab, randomPosition, Quaternion.identity);
                 upgradePrefab.transform.SetParent(transform, true);
-                if (_playerController != null)
+                if (_playerStats != null)
                 {
-                    upgradeItems[randomIndex].SetPlayer(_playerController);
+                    upgradeItems[randomIndex].SetPlayer(_playerStats);
                     //upgradeItems[randomIndex].SetUIManager(_levelUIManager);
                 }
             }

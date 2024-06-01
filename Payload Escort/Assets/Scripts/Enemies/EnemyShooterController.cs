@@ -134,7 +134,7 @@ public class EnemyShooterController : MonoBehaviour, IEnemy
     {
         if (other.tag == "bullet")
         {
-            GotHit(_playerController.Damage);
+            GotHit(_playerController.PlayerStats.Damage);
         }
     }
 

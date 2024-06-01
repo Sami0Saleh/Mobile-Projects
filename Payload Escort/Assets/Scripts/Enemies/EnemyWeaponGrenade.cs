@@ -48,7 +48,6 @@ public class EnemyWeaponGrenade : MonoBehaviour
 
             if (_rayHit.collider.gameObject.tag == "Player")
             {
-                Debug.Log(_rayHit.collider.gameObject.tag);
                 // Draw a red circle on the ground where the grenade will land
                 //_enemyGrenadeController.DrawLandingCircle(_enemyGrenadeController.PlayerTransform.transform.position);
                 _grenageLuncherBarrel.Shoot(_enemyGrenadeController.PlayerTransform.position);

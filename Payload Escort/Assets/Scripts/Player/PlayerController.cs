@@ -6,18 +6,18 @@ using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
+    public PlayerStats PlayerStats;
     public Vector3 CamPosition;
     [SerializeField] List<IEnemy> _enemies = new List<IEnemy>();
     [SerializeField] Transform _playerTransform;
+    [SerializeField] Transform _payloadTransform;
     [SerializeField] Transform _camTransform;
     [SerializeField] Animator _anim;
     [SerializeField] GameObject _pistol;
     [SerializeField] GameObject _assaultRifle;
-    [SerializeField] PlayerWeapon _weapon;
-    [SerializeField] LevelUIManager _levelUIManager;
+    public PlayerWeapon Weapon;
     [SerializeField] FloatingJoystick _joystick;
     //[SerializeField] UpgradeSpawner _upgradeSpawner;
-    [SerializeField] NewUpgradeSpawner _newUpgradeSpawner;
     [SerializeField] LayerMask _enemyLayer;
     [SerializeField] LineRenderer _detectionRangeCircle;
     [SerializeField] float _detectionRange;
@@ -27,16 +27,10 @@ public class PlayerController : MonoBehaviour
 
     private GameObject _currentEnemy;
     public Coins Coin;
-
-    private int _maxHP = 1000;
-    public int CurrentHP;
-    public int Damage = 2;
+    
     private Vector3 _moveDirection;
     private Quaternion originalrotation;
-    public int LevelCoins = 0;
-    public int PlayerLevel = 1;
-    public int PlayerLevelXP = 0;
-    public int PlayerLevelMaxXP;
+   
     private int _weaponIndex;
     public int Level = 0;
     public static int EnemyCount = 3;
@@ -45,16 +39,9 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         Time.timeScale = 1.0f;
-        CurrentHP = _maxHP;
-        PlayerLevelMaxXP = 25;
-        _levelUIManager.UpdatePlayerHP(CurrentHP, _maxHP);
-        _levelUIManager.UpdatePlayerLevel(PlayerLevel);
-        _levelUIManager.UpdatePlayerXP(PlayerLevelXP, PlayerLevelMaxXP);
-        _levelUIManager.UpdatePlayerCoins(LevelCoins);
     }
     private void Start()
     {
-        IsplayerDead = false;
         originalrotation = transform.rotation;
         _weaponIndex = 0;
         StartCoroutine(SwitchWeapons());
@@ -64,36 +51,9 @@ public class PlayerController : MonoBehaviour
         UpdateDetectionRangeCircle();
         Move();
         DetectEnemy();
-        
-        
     }
     public void Move()
     {
-
-        /* float horizontalInput = Input.GetAxis("Horizontal");
-         float verticalInput = Input.GetAxis("Vertical");
-
-         _moveDirection = new Vector3(horizontalInput, 0f, verticalInput).normalized;
-
-         if (_moveDirection.magnitude > 0)
-         {
-             _moveDirection.Normalize();
-         }
-         if (_moveDirection != Vector3.zero)
-         {
-             _isMoving = true;
-             Quaternion targetRotation = Quaternion.LookRotation(_moveDirection);
-             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
-             _anim.SetBool("isFWD", true);
-         }
-         else
-         {
-             _isMoving = false;
-             _anim.SetBool("isFWD", false);
-         }
-         Vector3 movement = _moveDirection * _moveSpeed * Time.deltaTime;
-         transform.Translate(movement, Space.World);*/
-
         Vector3 inputDirection = new Vector3(_joystick.Horizontal, 0f, _joystick.Vertical);
         if (inputDirection.magnitude > 0)
         {
@@ -120,12 +80,12 @@ public class PlayerController : MonoBehaviour
             if (!_isMoving)
             {
                 transform.LookAt(_currentEnemy.transform);
-                _weapon.StartShot();
+                Weapon.StartShot();
                 _anim.SetBool("isShooting", true);
             }
             else
             {
-                _weapon.EndShot();
+                Weapon.EndShot();
                 _anim.SetBool("isShooting", false);
             }
         }
@@ -133,13 +93,13 @@ public class PlayerController : MonoBehaviour
         {
             if (_isMoving)
             {
-                _weapon.EndShot();
+                Weapon.EndShot();
                 _anim.SetBool("isShooting", false);
             }
             else
             {
                 transform.rotation = originalrotation;
-                _weapon.EndShot();
+                Weapon.EndShot();
                 _anim.SetBool("isShooting", false);
             }
         }
@@ -219,55 +179,24 @@ public class PlayerController : MonoBehaviour
                 }
                 else if (enemy is EnemyGrenadeController)
                 {
+                    
                     TakeRangeDamage((enemy as EnemyGrenadeController).Damage);
                 }
-                // Add more enemy types if needed
             }
         }
     }
     public void TakeMeleeDamage(int damage)
     {
-        CurrentHP -= damage;
-        if (CurrentHP <= 0)
-        {
-            IsplayerDead = true;
-            Die();
-        }
-        _levelUIManager.UpdatePlayerHP(CurrentHP, _maxHP);
+        PlayerStats.TakeMeleeDamage(damage);
     }
     public void TakeRangeDamage(int damage)
     {
-        CurrentHP -= damage;
-        if (CurrentHP <= 0)
-        {
-            IsplayerDead = true;
-            Die();
-        }
-        _levelUIManager.UpdatePlayerHP(CurrentHP, _maxHP);
+        PlayerStats.TakeRangeDamage(damage);
     }
-    public void Die()
+    public void RespawnPlayer()
     {
-        Destroy(gameObject);
-        SceneManager.LoadScene(0);
-    }
-    public void UpdatePlayerCoins()
-    {
-        Meta.Coins += LevelCoins;
-    }
-    public void UpdatePlayerLevel()
-    {
-        if (PlayerLevelXP >= PlayerLevelMaxXP)
-        {
-            Debug.Log("Should Be Able to Level Up");
-            PlayerLevel++;
-            PlayerLevelXP -= PlayerLevelMaxXP;
-            PlayerLevelMaxXP += 25;
-            //_newUpgradeSpawner.OpenUpgrades();
-            // _upgradeSpawner.SpawnRandomUpgrades();
-            _newUpgradeSpawner.OpenUpgradeUI();
-        }
-        _levelUIManager.UpdatePlayerLevel(PlayerLevel);
-        _levelUIManager.UpdatePlayerXP(PlayerLevelXP, PlayerLevelMaxXP);
+        transform.position = new Vector3(_payloadTransform.position.x - 1f, 0.004f, _payloadTransform.position.z - 2f);
+        PlayerStats.CurrentHP = PlayerStats.MaxHP;
     }
 
     public void OnTriggerEnter(Collider other)
@@ -275,30 +204,18 @@ public class PlayerController : MonoBehaviour
         if (other.tag == "Coin")
         {
             Coin = other.GetComponent<Coins>();
-            LevelCoins++;
-            PlayerLevelXP++;
-            _levelUIManager.UpdatePlayerCoins(LevelCoins);
-            UpdatePlayerLevel();
+            PlayerStats.LevelCoins++;
+            PlayerStats.PlayerLevelXP++;
+            PlayerStats.UpdatePlayerCoins();
+            PlayerStats.UpdatePlayerLevel();
         }
         if (other.CompareTag("bullet") || other.CompareTag("grenade"))
         {
+            Debug.Log("hit triger");
             TakeDamageFromEnemies();
         }
     }
-    public void IncreaseDamage(int value)
-    {
-        Damage += value;
-    }
-    public void IncreaseHealth(int value)
-    {
-        _maxHP += value;
-        CurrentHP += value;
-        _levelUIManager.UpdatePlayerHP(CurrentHP, _maxHP);
-    }
-    public void UpdateFireRate(float value)
-    {
-        _weapon.FireRate -= value;
-    }
+    
     IEnumerator SwitchWeapons()
     {
         yield return new WaitForSeconds(0.1f);

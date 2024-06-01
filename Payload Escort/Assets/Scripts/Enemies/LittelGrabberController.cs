@@ -147,7 +147,7 @@ public class LittelGrabberController : MonoBehaviour, IEnemy
     {
         if (other.tag == "bullet")
         {
-            GotHit(_playerController.Damage);
+            GotHit(_playerController.PlayerStats.Damage);
         }
     }
     public void SetPlayer(PlayerController player)

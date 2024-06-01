@@ -7,7 +7,6 @@ using TMPro;
 
 public class LevelUIManager : MonoBehaviour
 {
-    [SerializeField] PlayerController _playerController;
     [SerializeField] GameObject _upgrades;
     [SerializeField] TextMeshProUGUI _playerHPText;
     [SerializeField] TextMeshProUGUI _playerLevelText;

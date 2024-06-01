@@ -14,7 +14,7 @@ public class UpgradeItem : ScriptableObject
     public UpgradeType upgradeType;
     public GameObject prefab;
     public float value;
-    private PlayerController _playerController;
+    private PlayerStats _playerStats;
     private NewUpgradeSpawner _newUpgradeSpawner;
 
     public void ApplyUpgrade()
@@ -24,17 +24,17 @@ public class UpgradeItem : ScriptableObject
         {
             case UpgradeType.Damage:
                 Debug.Log("Upgrading Damage");
-                _playerController.IncreaseDamage((int)value);
+                _playerStats.IncreaseDamage((int)value);
                 _newUpgradeSpawner.CloseUpgradeUI();
                 break;
             case UpgradeType.Health:
                 Debug.Log("Upgrading Health");
-                _playerController.IncreaseHealth((int)value);
+                _playerStats.IncreaseHealth((int)value);
                 _newUpgradeSpawner.CloseUpgradeUI();
                 break;
             case UpgradeType.FireRate:
                 Debug.Log("Upgrading FireRate");
-                _playerController.UpdateFireRate(value);
+                _playerStats.UpdateFireRate(value);
                 _newUpgradeSpawner.CloseUpgradeUI();
                 break;
             default:
@@ -42,9 +42,9 @@ public class UpgradeItem : ScriptableObject
                 break;
         }
     }
-    public void SetPlayer(PlayerController player)
+    public void SetPlayer(PlayerStats playerStats)
     {
-        _playerController = player;
+        _playerStats = playerStats;
     }
     public void SetUIManager(NewUpgradeSpawner newUpgradeSpawner)
     {
