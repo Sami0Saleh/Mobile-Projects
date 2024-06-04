@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyShooterController : MonoBehaviour, IEnemy
 {
-    private Transform _playerTransform;
-    private GameObject _payloadTarget;
-    private PlayerController _playerController;
+    [SerializeField] private Transform _playerTransform;
+    [SerializeField] private GameObject _payloadTarget;
+     private PlayerController _playerController;
     [SerializeField] Animator animator;
     [SerializeField] GameObject _droppableObjectPrefab;
     [SerializeField] EnemyWeapon _enemyWeapon;
     [SerializeField] LayerMask obstacleLayer;
+    [SerializeField] NavMeshAgent _agent;
 
     private int _maxHp = 7;
     public int _currentHp;
@@ -26,6 +28,7 @@ public class EnemyShooterController : MonoBehaviour, IEnemy
     private void Start()
     {
         _currentHp = _maxHp;
+       //_agent.destination = transform.position;
     }
     private void Update()
     {
@@ -36,13 +39,14 @@ public class EnemyShooterController : MonoBehaviour, IEnemy
     }
     private void enemeyState()
     {
-        if (!isPlayerDetected)
+        if (/*_agent.destination == transform.position*/ !isPlayerDetected)
         {
             DetectPlayer();
         }
         else
         {
             MoveTowardsPlayer();
+           // MoveNM();
         }
     }
     public void DetectPlayer()
@@ -53,8 +57,33 @@ public class EnemyShooterController : MonoBehaviour, IEnemy
         {
             if (col.CompareTag("Player"))
             {
+               //_agent.destination = _playerTransform.position;
                 isPlayerDetected = true;
                 break;
+            }
+            else if (col.CompareTag("payload"))
+            {
+               //_agent.destination = _payloadTarget.transform.position;
+            }
+        }
+    }
+    public void MoveNM()
+    {
+        float distanceToTarget = Vector3.Distance(transform.position, _agent.destination);
+        if (distanceToTarget > attackRange)
+        {
+            return;
+        }
+        else
+        {
+            if (_playerTransform != null)
+            {
+                RangeAttackPlayer();
+            }
+            else
+            {
+                _enemyWeapon.EndShot();
+                isAttacking = false;
             }
         }
     }

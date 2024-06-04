@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyGrenadeController : MonoBehaviour, IEnemy
 {
@@ -11,6 +12,7 @@ public class EnemyGrenadeController : MonoBehaviour, IEnemy
     [SerializeField] Animator animator;
     [SerializeField] GameObject _droppableObjectPrefab;
     [SerializeField] LayerMask obstacleLayer;
+    [SerializeField] NavMeshAgent _agent;
 
     private int _maxHp = 10;
     public int _currentHp;
@@ -36,13 +38,14 @@ public class EnemyGrenadeController : MonoBehaviour, IEnemy
     }
     private void enemeyState()
     {
-        if (!isPlayerDetected)
+        if (/*_agent.destination == transform.position*/!isPlayerDetected)
         {
             DetectPlayer();
         }
         else
         {
             MoveTowardsPlayer();
+           // MoveNM();
         }
     }
     public void DetectPlayer()
@@ -53,8 +56,34 @@ public class EnemyGrenadeController : MonoBehaviour, IEnemy
         {
             if (col.CompareTag("Player"))
             {
+               //_agent.destination = PlayerTransform.position;
                 isPlayerDetected = true;
                 break;
+            }
+            else if (col.CompareTag("Payload"))
+            {
+                //_agent.destination = PayloadTarget.transform.position;
+            }
+        }
+    }
+
+    public void MoveNM()
+    {
+        float distanceToTarget = Vector3.Distance(transform.position, _agent.destination);
+        if (distanceToTarget > attackRange)
+        {
+            return;
+        }
+        else
+        {
+            if (PlayerTransform != null)
+            {
+                ShootGrenade();
+            }
+            else
+            {
+                _enemyWeaponGrenade.EndShot();
+                isAttacking = false;
             }
         }
     }
