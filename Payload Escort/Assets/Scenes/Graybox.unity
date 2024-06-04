@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2053,7 +2053,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerController: {fileID: 1155928637}
   _playerTransform: {fileID: 1155928639}
-  _payloadTarget: {fileID: 0}
+  _payloadTarget: {fileID: 8642310968773524843}
 --- !u!1 &794428475
 GameObject:
   m_ObjectHideFlags: 0
@@ -2858,7 +2858,7 @@ MonoBehaviour:
   - {fileID: 1644431496}
   - {fileID: 1068966561}
   - {fileID: 1469520312}
-  _playerController: {fileID: 1155928637}
+  _playerStats: {fileID: 0}
 --- !u!1 &1228045295
 GameObject:
   m_ObjectHideFlags: 0
@@ -3805,7 +3805,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49ff21e63ee871e4387c913cb37c8860, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerController: {fileID: 1155928637}
   _upgrades: {fileID: 853122347}
   _playerHPText: {fileID: 244211075}
   _playerLevelText: {fileID: 929673136}
@@ -4040,7 +4039,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a15ee7a272d3d4e4b92388ddca404493, type: 2}
   - {fileID: 11400000, guid: 44a42763c37ff7647945e66049ad6f6f, type: 2}
   numberOfUpgradesToSpawn: 3
-  _playerController: {fileID: 1155928637}
+  _playerStats: {fileID: 0}
   _levelUIManager: {fileID: 1512039792}
 --- !u!1001 &1770235261
 PrefabInstance:
@@ -5009,6 +5008,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 860716189620949525, guid: e653b382341fb7a4c8bc8d056f8ec998,
+        type: 3}
+      propertyPath: _levelUIManager
+      value: 
+      objectReference: {fileID: 1512039792}
+    - target: {fileID: 860716189620949525, guid: e653b382341fb7a4c8bc8d056f8ec998,
+        type: 3}
+      propertyPath: _newUpgradeSpawner
+      value: 
+      objectReference: {fileID: 1178619890}
     - target: {fileID: 3621494352983870489, guid: e653b382341fb7a4c8bc8d056f8ec998,
         type: 3}
       propertyPath: _joystick
@@ -5024,6 +5033,11 @@ PrefabInstance:
       propertyPath: _levelUIManager
       value: 
       objectReference: {fileID: 1512039792}
+    - target: {fileID: 3621494352983870489, guid: e653b382341fb7a4c8bc8d056f8ec998,
+        type: 3}
+      propertyPath: _payloadTransform
+      value: 
+      objectReference: {fileID: 8642310968773524846}
     - target: {fileID: 3621494352983870489, guid: e653b382341fb7a4c8bc8d056f8ec998,
         type: 3}
       propertyPath: _newUpgradeSpawner
@@ -5309,6 +5323,12 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.3, y: 0.3, z: 0.3}
   m_Center: {x: 0, y: 0, z: 3.18}
+--- !u!4 &8642310968773524846 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2115892887802667170, guid: 42b6466eddcebf3458477100ce35f50b,
+    type: 3}
+  m_PrefabInstance: {fileID: 8642310968773524842}
+  m_PrefabAsset: {fileID: 0}
 --- !u!54 &8642310968773524847
 Rigidbody:
   m_ObjectHideFlags: 0

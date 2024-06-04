@@ -5,9 +5,9 @@ using UnityEngine.AI;
 
 public class EnemyShooterController : MonoBehaviour, IEnemy
 {
-    [SerializeField] private Transform _playerTransform;
-    [SerializeField] private GameObject _payloadTarget;
-     private PlayerController _playerController;
+    private Transform _playerTransform;
+    private GameObject _payloadTarget;
+    private PlayerController _playerController;
     [SerializeField] Animator animator;
     [SerializeField] GameObject _droppableObjectPrefab;
     [SerializeField] EnemyWeapon _enemyWeapon;

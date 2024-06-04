@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1449,6 +1449,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -3867680435549775106, guid: 30a66504cb28f5346b391756fc2fbc76,
         type: 3}
+      propertyPath: _agent
+      value: 
+      objectReference: {fileID: 483846540}
+    - target: {fileID: -3867680435549775106, guid: 30a66504cb28f5346b391756fc2fbc76,
+        type: 3}
       propertyPath: obstacleLayer.m_Bits
       value: 0
       objectReference: {fileID: 0}
@@ -1512,6 +1517,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30a66504cb28f5346b391756fc2fbc76, type: 3}
+--- !u!195 &483846540 stripped
+NavMeshAgent:
+  m_CorrespondingSourceObject: {fileID: 6901555319683624381, guid: 30a66504cb28f5346b391756fc2fbc76,
+    type: 3}
+  m_PrefabInstance: {fileID: 483846539}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &490993457
 GameObject:
   m_ObjectHideFlags: 0
@@ -4324,3 +4335,4 @@ SceneRoots:
   - {fileID: 68887158}
   - {fileID: 121133679}
   - {fileID: 1509438304}
+  - {fileID: 2024109088}
