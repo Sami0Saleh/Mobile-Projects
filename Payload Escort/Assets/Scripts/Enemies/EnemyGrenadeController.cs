@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class EnemyGrenadeController : MonoBehaviour, IEnemy
 {
     public Transform PlayerTransform;
-    public GameObject PayloadTarget;
+    public Transform PayloadTransform;
     private PlayerController _playerController;
     [SerializeField] EnemyWeaponGrenade _enemyWeaponGrenade;
     [SerializeField] Animator animator;
@@ -40,15 +40,15 @@ public class EnemyGrenadeController : MonoBehaviour, IEnemy
     {
         if (/*_agent.destination == transform.position*/!isPlayerDetected)
         {
-            DetectPlayer();
+            DetectTarget();
         }
         else
         {
             MoveTowardsPlayer();
-           // MoveNM();
+           // MoveNMToPlayer();
         }
     }
-    public void DetectPlayer()
+    public void DetectTarget()
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRange);
 
@@ -183,8 +183,8 @@ public class EnemyGrenadeController : MonoBehaviour, IEnemy
         PlayerTransform = playerTransform;
     }
 
-    public void SetPayloadTarget(GameObject payloadTarget)
+    public void SetPayloadTarget(Transform payloadTransform)
     {
-        PayloadTarget = payloadTarget;
+        PayloadTransform = payloadTransform;
     }
 }

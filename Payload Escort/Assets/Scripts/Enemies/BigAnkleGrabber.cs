@@ -6,7 +6,7 @@ public class BigAnkleGrabber : MonoBehaviour, IEnemy
 {
     [SerializeField] GameObject _littelAnkleGrabberPrefab;
     private Transform _playerTransform;
-    private GameObject _payloadTarget;
+    private Transform _payloadTransform;
     private PlayerController _playerController;
     [SerializeField] Animator animator;
     [SerializeField] LayerMask _player;
@@ -45,14 +45,14 @@ public class BigAnkleGrabber : MonoBehaviour, IEnemy
         }
         if (!isPlayerDetected)
         {
-            DetectPlayer();
+            DetectTarget();
         }
         else
         {
             MoveTowardsPlayer();
         }
     }
-    public void DetectPlayer()
+    public void DetectTarget()
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRange);
 
@@ -157,8 +157,8 @@ public class BigAnkleGrabber : MonoBehaviour, IEnemy
         _playerTransform = playerTransform;
     }
 
-    public void SetPayloadTarget(GameObject payloadTarget)
+    public void SetPayloadTarget(Transform payloadTransform)
     {
-        _payloadTarget = payloadTarget;
+        _payloadTransform = payloadTransform;
     }
 }

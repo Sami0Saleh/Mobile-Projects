@@ -4,11 +4,11 @@ using UnityEngine;
 
 public interface IEnemy
 {
-    void DetectPlayer();
+    void DetectTarget();
     void MoveTowardsPlayer();
     void GotHit(int damage);
     void Die();
     void SetPlayer(PlayerController player);
     void SetPlayerTransform(Transform playerTransform);
-    void SetPayloadTarget(GameObject payloadTarget);
+    void SetPayloadTarget(Transform payloadTransform);
 }

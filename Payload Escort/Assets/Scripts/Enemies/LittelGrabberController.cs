@@ -5,7 +5,7 @@ using UnityEngine;
 public class LittelGrabberController : MonoBehaviour, IEnemy
 {
     private Transform _playerTransform;
-    private GameObject _payloadTarget;
+    private Transform _payloadTransform;
     private PlayerController _playerController;
     [SerializeField] Animator animator;
     [SerializeField] LayerMask _player;
@@ -43,14 +43,14 @@ public class LittelGrabberController : MonoBehaviour, IEnemy
         }
         if (!isPlayerDetected)
         {
-            DetectPlayer();
+            DetectTarget();
         }
         else
         {
             MoveTowardsPlayer();
         }
     }
-    public void DetectPlayer()
+    public void DetectTarget()
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRange);
 
@@ -160,8 +160,8 @@ public class LittelGrabberController : MonoBehaviour, IEnemy
         _playerTransform = playerTransform;
     }
 
-    public void SetPayloadTarget(GameObject payloadTarget)
+    public void SetPayloadTarget(Transform payloadTransform)
     {
-        _payloadTarget = payloadTarget;
+        _payloadTransform = payloadTransform;
     }
 }

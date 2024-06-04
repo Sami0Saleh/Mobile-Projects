@@ -130,7 +130,7 @@ public class PlayerController : MonoBehaviour
             float angle = (float)i / pointCount * 360f;
             float x = Mathf.Sin(angle * Mathf.Deg2Rad) * _detectionRange;
             float z = Mathf.Cos(angle * Mathf.Deg2Rad) * _detectionRange;
-            Vector3 point = transform.position + new Vector3(x, 0f, z);
+            Vector3 point = transform.position + new Vector3(x, 0.004f, z);
             _detectionRangeCircle.SetPosition(i, point);
         }
     }
@@ -211,7 +211,6 @@ public class PlayerController : MonoBehaviour
         }
         if (other.CompareTag("bullet") || other.CompareTag("grenade"))
         {
-            Debug.Log("hit triger");
             TakeDamageFromEnemies();
         }
     }

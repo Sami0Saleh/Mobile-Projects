@@ -6,12 +6,12 @@ using UnityEngine.AI;
 public class EnemyShooterController : MonoBehaviour, IEnemy
 {
     private Transform _playerTransform;
-    private GameObject _payloadTarget;
+    private Transform _payloadTransform;
     private PlayerController _playerController;
     [SerializeField] Animator animator;
     [SerializeField] GameObject _droppableObjectPrefab;
     [SerializeField] EnemyWeapon _enemyWeapon;
-    [SerializeField] LayerMask obstacleLayer;
+    [SerializeField] LayerMask _targetLayer;
     [SerializeField] NavMeshAgent _agent;
 
     private int _maxHp = 7;
@@ -19,66 +19,101 @@ public class EnemyShooterController : MonoBehaviour, IEnemy
     public int Damage = 7;
     public bool enemyIsDead = false;
     public bool isAttacking = false;
-    public float detectionRange = 3f;
+    public float detectionRange = 10f;
     public float attackRange = 2f;
     public float moveSpeed = 1f;
     public float rotationSpeed = 2f;
-    private bool isPlayerDetected;
+    public bool _targetInAttackRange;
+    public bool _targetIsInMySight;
+    public float _sightRange = 10f;
+    public float _attackRange = 2f;
+    public float _payloadAttackRange = 5f;
 
     private void Start()
     {
         _currentHp = _maxHp;
-       //_agent.destination = transform.position;
+        if (_payloadTransform != null)
+        {
+            MoveNMToPayload();
+        }
     }
     private void Update()
     {
-        if (!PlayerController.IsplayerDead)
-        {
-            enemeyState();
-        }
+        enemeyState();
     }
     private void enemeyState()
     {
-        if (/*_agent.destination == transform.position*/ !isPlayerDetected)
-        {
-            DetectPlayer();
-        }
-        else
-        {
-            MoveTowardsPlayer();
-           // MoveNM();
-        }
+         DetectTarget();
     }
-    public void DetectPlayer()
+    public void DetectTarget()
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRange);
+
+        bool playerDetected = false;
+        bool payloadDetected = false;
 
         foreach (Collider col in hitColliders)
         {
             if (col.CompareTag("Player"))
             {
-               //_agent.destination = _playerTransform.position;
-                isPlayerDetected = true;
-                break;
+                playerDetected = true;
             }
             else if (col.CompareTag("payload"))
             {
-               //_agent.destination = _payloadTarget.transform.position;
+                payloadDetected = true;
             }
         }
-    }
-    public void MoveNM()
-    {
-        float distanceToTarget = Vector3.Distance(transform.position, _agent.destination);
-        if (distanceToTarget > attackRange)
+
+        if (payloadDetected && Vector3.Distance(transform.position, _payloadTransform.position) <= _payloadAttackRange)
         {
-            return;
+            MoveNMToPayload();
         }
-        else
+        else if (playerDetected && Vector3.Distance(transform.position, _playerTransform.position) <= _attackRange)
+        {
+            MoveNMToPlayer();
+        }
+        
+    }
+
+    public void MoveNMToPlayer()
+    {
+        _targetIsInMySight = Physics.CheckSphere(transform.position, _sightRange, _targetLayer);
+        _targetInAttackRange = Physics.CheckSphere(transform.position, _attackRange, _targetLayer);
+
+        if (_targetIsInMySight && !_targetInAttackRange)
+        {
+            _agent.SetDestination(_playerTransform.position);
+        }
+        else if (_targetIsInMySight && _targetInAttackRange)
         {
             if (_playerTransform != null)
             {
-                RangeAttackPlayer();
+                transform.LookAt(_playerTransform);
+                RangeAttackTarget();
+            }
+
+            else
+            {
+                _enemyWeapon.EndShot();
+                isAttacking = false;
+            }
+        }
+    }
+    public void MoveNMToPayload()
+    {
+        _targetIsInMySight = Physics.CheckSphere(transform.position, _sightRange, _targetLayer);
+        _targetInAttackRange = Physics.CheckSphere(transform.position, _payloadAttackRange, _targetLayer);
+
+        if (_targetIsInMySight && !_targetInAttackRange)
+        {
+            _agent.SetDestination(_payloadTransform.transform.position);
+        }
+        else if (_targetIsInMySight && _targetInAttackRange)
+        {
+            if (_payloadTransform != null)
+            {
+                transform.LookAt(_payloadTransform);
+                RangeAttackTarget();
             }
             else
             {
@@ -90,45 +125,29 @@ public class EnemyShooterController : MonoBehaviour, IEnemy
     public void MoveTowardsPlayer()
     {
         // Rotate towards the player
-        Vector3 direction = (_playerTransform.transform.position - transform.position).normalized;
+        Vector3 direction = (_playerTransform.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
 
         // Move towards the player
-        float distanceToPlayer = Vector3.Distance(transform.position, _playerTransform.transform.position);
+        float distanceToPlayer = Vector3.Distance(transform.position, _playerTransform.position);
         if (distanceToPlayer > attackRange)
         {
             // Check for obstacles in front of the enemy
-            if (!IsObstacleInPath())
-            {
-                transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
-            }
+            
         }
-        else
+        /*else
         {
             if (_playerTransform != null)
             {
-                RangeAttackPlayer();
+                RangeAttackTarget();
             }
             
-            else
-            {
-                _enemyWeapon.EndShot();
-                isAttacking = false;
-            }
-        }
+        }*/
     }
-    public bool IsObstacleInPath()
+    public void RangeAttackTarget()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, detectionRange, obstacleLayer))
-        {
-            return true;
-        }
-        return false;
-    }
-    public void RangeAttackPlayer()
-    {
+        _agent.velocity = Vector3.zero;
         isAttacking = true;
         _enemyWeapon.StartShot();
     }
@@ -177,8 +196,8 @@ public class EnemyShooterController : MonoBehaviour, IEnemy
         _playerTransform = playerTransform;
     }
 
-    public void SetPayloadTarget(GameObject payloadTarget)
+    public void SetPayloadTarget(Transform payloadTransform)
     {
-        _payloadTarget = payloadTarget;
+        _payloadTransform = payloadTransform;
     }
 }

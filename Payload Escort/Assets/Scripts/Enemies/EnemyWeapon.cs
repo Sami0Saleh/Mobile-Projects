@@ -46,7 +46,7 @@ public class EnemyWeapon : MonoBehaviour
         if (Physics.Raycast(transform.position, direction, out _rayHit, _bulletRange))
         {
 
-            if (_rayHit.collider.gameObject.tag == "Player")
+            if (_rayHit.collider.gameObject.tag == "Player" || _rayHit.collider.gameObject.tag == "payload")
             {
                 _barrel.Shoot(direction);
             }
