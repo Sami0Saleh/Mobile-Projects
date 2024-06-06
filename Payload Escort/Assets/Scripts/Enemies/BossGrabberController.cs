@@ -140,13 +140,7 @@ public class BossGrabberController : MonoBehaviour, IEnemy
             _playerController.TakeMeleeDamage(Damage);
         }
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "bullet")
-        {
-            GotHit(_playerController.PlayerStats.Damage);
-        }
-    }
+    
     public void SetPlayer(PlayerController player)
     {
         _playerController = player;

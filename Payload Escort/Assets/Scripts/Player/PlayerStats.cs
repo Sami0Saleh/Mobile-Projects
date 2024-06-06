@@ -11,7 +11,6 @@ public class PlayerStats : MonoBehaviour
 
     public int MaxHP = 1000;
     public int CurrentHP;
-    public int Damage = 2;
     public int LevelCoins = 0;
     public int PlayerLevel = 1;
     public int PlayerLevelXP = 0;
@@ -39,7 +38,6 @@ public class PlayerStats : MonoBehaviour
     }
     public void TakeRangeDamage(int damage)
     {
-        Debug.Log("hit");
         CurrentHP -= damage;
         if (CurrentHP <= 0)
         {
@@ -63,7 +61,7 @@ public class PlayerStats : MonoBehaviour
     }
     public void IncreaseDamage(int value)
     {
-        Damage += value;
+        _playerController.Weapon.BulletDamage += value;
     }
     public void IncreaseHealth(int value)
     {

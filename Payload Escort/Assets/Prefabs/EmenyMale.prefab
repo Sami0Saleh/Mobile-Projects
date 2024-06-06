@@ -179,7 +179,6 @@ MonoBehaviour:
     m_Bits: 136
   _agent: {fileID: 4610714813500203874}
   _currentHp: 0
-  Damage: 7
   enemyIsDead: 0
   isAttacking: 0
   detectionRange: 25
@@ -260,7 +259,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!1 &1613411778150896514
 GameObject:
   m_ObjectHideFlags: 0
@@ -881,7 +880,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65468cd3e5a471846adc11c3f58bec6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bullet: {fileID: 6483222281551877279, guid: acebbbb5fa16d374096820e2539f46df, type: 3}
+  _bulletPrefab: {fileID: 6483222281551877279, guid: acebbbb5fa16d374096820e2539f46df,
+    type: 3}
 --- !u!1 &6043775399820121312
 GameObject:
   m_ObjectHideFlags: 0
@@ -1930,6 +1930,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7775909171458005017, guid: 7b3294f08d0ff02459c627c1de9c3611,
+        type: 3}
+      propertyPath: m_TagString
+      value: enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -1966,6 +1971,8 @@ MonoBehaviour:
   _bulletRange: 20
   _fireRate: 1
   _isAutomatic: 1
+  _bulletSpeed: 2
+  _bulletDamage: 7
 --- !u!4 &1894946318463584913 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7775909171457901625, guid: 7b3294f08d0ff02459c627c1de9c3611,

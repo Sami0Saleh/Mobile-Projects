@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using System.Linq;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour ,IDamageable
 {
     public PlayerStats PlayerStats;
     public Vector3 CamPosition;
@@ -27,10 +28,10 @@ public class PlayerController : MonoBehaviour
 
     private GameObject _currentEnemy;
     public Coins Coin;
-    
+
     private Vector3 _moveDirection;
     private Quaternion originalrotation;
-   
+
     private int _weaponIndex;
     public int Level = 0;
     public static int EnemyCount = 3;
@@ -103,7 +104,7 @@ public class PlayerController : MonoBehaviour
                 _anim.SetBool("isShooting", false);
             }
         }
-        
+
         if (Input.GetKey(KeyCode.Alpha1))
         {
             _weaponIndex = 0;
@@ -136,60 +137,36 @@ public class PlayerController : MonoBehaviour
     }
     public void DetectEnemy()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, _detectionRange, _enemyLayer);
-
-        // Clear the detectedEnemies list before populating it with new detections
         _enemies.Clear();
 
-        if (hitColliders.Length > 0)
+        float closestDistance = Mathf.Infinity;
+        IEnemy closestEnemy = null;
+
+        foreach (IEnemy enemy in IEnemy.EnemyList)
         {
-            // Loop through all detected enemy colliders
-            float closestDistance = Mathf.Infinity;
-            foreach (Collider col in hitColliders)
+            float distance = Vector3.Distance(transform.position, enemy.transform.position);
+            if (distance < _detectionRange && distance < closestDistance)
             {
-                float distance = Vector3.Distance(transform.position, col.transform.position);
-                if (distance < closestDistance)
-                {
-                    closestDistance = distance;
-                    IEnemy enemyController = col.GetComponent<IEnemy>();
-                    _currentEnemy = col.gameObject;
-                    if (enemyController != null)
-                    {
-                        _enemies.Add(enemyController);
-                    }
-                   
-                }
+                closestDistance = distance;
+                closestEnemy = enemy;
             }
+        }
+
+        if (closestEnemy != null)
+        {
+            _currentEnemy = closestEnemy.gameObject;
+            _enemies.Add(closestEnemy);
         }
         else
         {
             _currentEnemy = null;
         }
     }
-    public void TakeDamageFromEnemies()
-    {
-        // Loop through all detected enemies and apply damage
-        foreach (IEnemy enemy in _enemies)
-        {
-            if (enemy != null)
-            {
-                if (enemy is EnemyShooterController)
-                {
-                    TakeRangeDamage((enemy as EnemyShooterController).Damage);
-                }
-                else if (enemy is EnemyGrenadeController)
-                {
-                    
-                    TakeRangeDamage((enemy as EnemyGrenadeController).Damage);
-                }
-            }
-        }
-    }
     public void TakeMeleeDamage(int damage)
     {
         PlayerStats.TakeMeleeDamage(damage);
     }
-    public void TakeRangeDamage(int damage)
+    public void TakeRangedDamage(int damage)
     {
         PlayerStats.TakeRangeDamage(damage);
     }
@@ -209,12 +186,8 @@ public class PlayerController : MonoBehaviour
             PlayerStats.UpdatePlayerCoins();
             PlayerStats.UpdatePlayerLevel();
         }
-        if (other.CompareTag("bullet") || other.CompareTag("grenade"))
-        {
-            TakeDamageFromEnemies();
-        }
     }
-    
+
     IEnumerator SwitchWeapons()
     {
         yield return new WaitForSeconds(0.1f);

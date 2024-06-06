@@ -2580,14 +2580,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ac2a5fe3d0ff69409801716f715a5ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _littelAnkleGrabberPrefab: {fileID: 7333000809852329301, guid: 2e8379651fa313a408bdd2ec6df151ef, type: 3}
+  _littelAnkleGrabberPrefab: {fileID: 7333000809852329301, guid: 2e8379651fa313a408bdd2ec6df151ef,
+    type: 3}
   animator: {fileID: 7606148076535147314}
   _player:
     serializedVersion: 2
     m_Bits: 128
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 0
   _BiteSound: {fileID: 3168213686844018444}
   _currentHp: 0
   Damage: 5

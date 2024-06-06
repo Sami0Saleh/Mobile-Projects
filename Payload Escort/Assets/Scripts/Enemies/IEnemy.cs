@@ -4,9 +4,11 @@ using UnityEngine;
 
 public interface IEnemy
 {
+    static public List<IEnemy> EnemyList = new List<IEnemy>();
+    Transform transform { get; }
+    GameObject gameObject { get; }
     void DetectTarget();
     void MoveTowardsPlayer();
-    void GotHit(int damage);
     void Die();
     void SetPlayer(PlayerController player);
     void SetPlayerTransform(Transform playerTransform);

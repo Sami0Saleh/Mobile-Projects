@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyShooterController : MonoBehaviour, IEnemy
+public class EnemyShooterController : MonoBehaviour, IEnemy , IDamageable
 {
     private Transform _playerTransform;
     private Transform _payloadTransform;
@@ -16,7 +16,6 @@ public class EnemyShooterController : MonoBehaviour, IEnemy
 
     private int _maxHp = 7;
     public int _currentHp;
-    public int Damage = 7;
     public bool enemyIsDead = false;
     public bool isAttacking = false;
     public float detectionRange = 10f;
@@ -29,12 +28,20 @@ public class EnemyShooterController : MonoBehaviour, IEnemy
     public float _attackRange = 2f;
     public float _payloadAttackRange = 5f;
 
+    private void OnEnable()
+    {
+        IEnemy.EnemyList.Add(this);
+    }
+    private void OnDestroy()
+    {
+        IEnemy.EnemyList.Remove(this);
+    }
     private void Start()
     {
         _currentHp = _maxHp;
         if (_payloadTransform != null)
         {
-            MoveNMToPayload();
+            MoveNM(_payloadTransform);
         }
     }
     private void Update()
@@ -43,52 +50,36 @@ public class EnemyShooterController : MonoBehaviour, IEnemy
     }
     private void enemeyState()
     {
-         DetectTarget();
+        DetectTarget();
     }
     public void DetectTarget()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRange);
-
-        bool playerDetected = false;
-        bool payloadDetected = false;
-
-        foreach (Collider col in hitColliders)
-        {
-            if (col.CompareTag("Player"))
-            {
-                playerDetected = true;
-            }
-            else if (col.CompareTag("payload"))
-            {
-                payloadDetected = true;
-            }
-        }
-
-        if (payloadDetected && Vector3.Distance(transform.position, _payloadTransform.position) <= _payloadAttackRange)
-        {
-            MoveNMToPayload();
-        }
-        else if (playerDetected && Vector3.Distance(transform.position, _playerTransform.position) <= _attackRange)
-        {
-            MoveNMToPlayer();
-        }
         
+        if (Vector3.Distance(transform.position, _payloadTransform.position) <= _payloadAttackRange)
+        {
+            MoveNM(_payloadTransform);
+        }
+        else if (Vector3.Distance(transform.position, _playerTransform.position) <= _attackRange)
+        {
+            MoveNM(_playerTransform);
+        }
+
     }
 
-    public void MoveNMToPlayer()
+    public void MoveNM(Transform targetTransform)
     {
-        _targetIsInMySight = Physics.CheckSphere(transform.position, _sightRange, _targetLayer);
-        _targetInAttackRange = Physics.CheckSphere(transform.position, _attackRange, _targetLayer);
+        float Distance = Vector3.Distance(transform.position, targetTransform.position);
 
-        if (_targetIsInMySight && !_targetInAttackRange)
+        if (Distance > attackRange)
         {
-            _agent.SetDestination(_playerTransform.position);
+            _agent.isStopped = false;
+            _agent.SetDestination(targetTransform.position);
         }
-        else if (_targetIsInMySight && _targetInAttackRange)
+        else if (Distance <= attackRange)
         {
-            if (_playerTransform != null)
+            if (targetTransform != null)
             {
-                transform.LookAt(_playerTransform);
+                transform.LookAt(targetTransform);
                 RangeAttackTarget();
             }
 
@@ -99,29 +90,7 @@ public class EnemyShooterController : MonoBehaviour, IEnemy
             }
         }
     }
-    public void MoveNMToPayload()
-    {
-        _targetIsInMySight = Physics.CheckSphere(transform.position, _sightRange, _targetLayer);
-        _targetInAttackRange = Physics.CheckSphere(transform.position, _payloadAttackRange, _targetLayer);
-
-        if (_targetIsInMySight && !_targetInAttackRange)
-        {
-            _agent.SetDestination(_payloadTransform.transform.position);
-        }
-        else if (_targetIsInMySight && _targetInAttackRange)
-        {
-            if (_payloadTransform != null)
-            {
-                transform.LookAt(_payloadTransform);
-                RangeAttackTarget();
-            }
-            else
-            {
-                _enemyWeapon.EndShot();
-                isAttacking = false;
-            }
-        }
-    }
+    
     public void MoveTowardsPlayer()
     {
         // Rotate towards the player
@@ -134,7 +103,7 @@ public class EnemyShooterController : MonoBehaviour, IEnemy
         if (distanceToPlayer > attackRange)
         {
             // Check for obstacles in front of the enemy
-            
+
         }
         /*else
         {
@@ -147,11 +116,11 @@ public class EnemyShooterController : MonoBehaviour, IEnemy
     }
     public void RangeAttackTarget()
     {
-        _agent.velocity = Vector3.zero;
+        _agent.isStopped = true;
         isAttacking = true;
         _enemyWeapon.StartShot();
     }
-    public void GotHit(int damage)
+    public void TakeRangedDamage(int damage)
     {
         _currentHp -= damage;
         if (_currentHp <= 0)
@@ -173,19 +142,11 @@ public class EnemyShooterController : MonoBehaviour, IEnemy
 
         for (int i = 0; i < numObjectsToDrop; i++)
         {
-            
-            Vector3 dropPosition = new Vector3(transform.position.x + Random.Range(0.01f, 0.3f), 0f, transform.position.z + Random.Range(0.01f,0.3f));
+
+            Vector3 dropPosition = new Vector3(transform.position.x + Random.Range(0.01f, 0.3f), 0f, transform.position.z + Random.Range(0.01f, 0.3f));
             Instantiate(_droppableObjectPrefab, dropPosition, Quaternion.identity);
         }
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "bullet")
-        {
-            GotHit(_playerController.PlayerStats.Damage);
-        }
-    }
-
     public void SetPlayer(PlayerController player)
     {
         _playerController = player;

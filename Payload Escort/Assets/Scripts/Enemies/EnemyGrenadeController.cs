@@ -25,6 +25,14 @@ public class EnemyGrenadeController : MonoBehaviour, IEnemy
     public float rotationSpeed = 2f;
     private bool isPlayerDetected;
 
+    private void OnEnable()
+    {
+        IEnemy.EnemyList.Add(this);
+    }
+    private void OnDestroy()
+    {
+        IEnemy.EnemyList.Remove(this);
+    }
     private void Start()
     {
         _currentHp = _maxHp;
@@ -45,7 +53,7 @@ public class EnemyGrenadeController : MonoBehaviour, IEnemy
         else
         {
             MoveTowardsPlayer();
-           // MoveNMToPlayer();
+           // MoveNM();
         }
     }
     public void DetectTarget()
@@ -60,10 +68,10 @@ public class EnemyGrenadeController : MonoBehaviour, IEnemy
                 isPlayerDetected = true;
                 break;
             }
-            else if (col.CompareTag("Payload"))
+            /*else if (col.CompareTag("Payload"))
             {
                 //_agent.destination = PayloadTarget.transform.position;
-            }
+            }*/
         }
     }
 
@@ -166,13 +174,7 @@ public class EnemyGrenadeController : MonoBehaviour, IEnemy
             Instantiate(_droppableObjectPrefab, dropPosition, Quaternion.identity);
         }
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "bullet")
-        {
-            GotHit(_playerController.PlayerStats.Damage);
-        }
-    }
+    
     public void SetPlayer(PlayerController player)
     {
         _playerController = player;

@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class EnemyWeapon : MonoBehaviour
 {
-    [SerializeField] EnemyShooterController _enemyShooterController;
-    [SerializeField] Barrel _barrel;
-
-    [SerializeField] float _bulletRange;
-    [SerializeField] float _fireRate;
-    [SerializeField] bool _isAutomatic;
+    [SerializeField] private EnemyShooterController _enemyShooterController;
+    [SerializeField] private Barrel _barrel;
+    [SerializeField] private float _bulletRange;
+    [SerializeField] private float _fireRate;
+    [SerializeField] private bool _isAutomatic;
+    [SerializeField] private float _bulletSpeed;
+    [SerializeField] private int _bulletDamage;
     private int _ammoLeft = 1;
 
     private bool _canShoot;
@@ -34,10 +35,12 @@ public class EnemyWeapon : MonoBehaviour
     {
         _canShoot = true;
     }
+
     public void EndShot()
     {
         _canShoot = false;
     }
+
     private void PerformShot()
     {
         _readyToShoot = false;
@@ -45,14 +48,12 @@ public class EnemyWeapon : MonoBehaviour
 
         if (Physics.Raycast(transform.position, direction, out _rayHit, _bulletRange))
         {
-
-            if (_rayHit.collider.gameObject.tag == "Player" || _rayHit.collider.gameObject.tag == "payload")
+            if (_rayHit.collider.CompareTag("Player") || _rayHit.collider.CompareTag("payload"))
             {
-                _barrel.Shoot(direction);
+                _barrel.Shoot(direction, _bulletSpeed, _bulletDamage, gameObject);
             }
         }
 
-       
         if (_ammoLeft >= 0)
         {
             Invoke("ResetShot", _fireRate);
@@ -63,9 +64,9 @@ public class EnemyWeapon : MonoBehaviour
             }
         }
     }
+
     private void ResetShot()
     {
         _readyToShoot = true;
     }
-    
 }

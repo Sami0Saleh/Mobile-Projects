@@ -6,11 +6,12 @@ public class PlayerWeapon : MonoBehaviour
 {
 
     [SerializeField] PlayerController _playerController;
-    [SerializeField] Barrel _barrel;
-
-    [SerializeField] float _bulletRange;
+    [SerializeField] private Barrel _barrel;
+    [SerializeField] private float _bulletRange;
     public float FireRate;
-    [SerializeField] bool _isAutomatic;
+    [SerializeField] private bool _isAutomatic;
+    [SerializeField] private float _bulletSpeed;
+    public int BulletDamage;
     private int _ammoLeft = 1;
 
     private bool _canShoot = false;
@@ -49,7 +50,7 @@ public class PlayerWeapon : MonoBehaviour
         {
             if (_rayHit.collider.gameObject.tag == "enemy")
             {
-                _barrel.Shoot(direction);
+                _barrel.Shoot(direction, _bulletSpeed, BulletDamage, gameObject);
             }
         }
 

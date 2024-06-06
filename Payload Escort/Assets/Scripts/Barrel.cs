@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Barrel : MonoBehaviour
 {
-    [SerializeField] GameObject _bullet;
+    [SerializeField] private GameObject _bulletPrefab;
 
-    public void Shoot(Vector3 direction)
+    public void Shoot(Vector3 direction, float speed, int damage, GameObject shooter)
     {
-        Instantiate(_bullet, transform.position, Quaternion.LookRotation(direction));
+        GameObject bullet = Instantiate(_bulletPrefab, transform.position, Quaternion.LookRotation(direction));
+        Bullet bulletComponent = bullet.GetComponent<Bullet>();
+        bulletComponent.Initialize(speed, damage, shooter);
     }
 }
