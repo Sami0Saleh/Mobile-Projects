@@ -68,7 +68,7 @@ public class EnemyGrenadeController : MonoBehaviour, IEnemy
                 isPlayerDetected = true;
                 break;
             }
-            /*else if (col.CompareTag("Payload"))
+            /*else if (col.CompareTag("PayloadController"))
             {
                 //_agent.destination = PayloadTarget.transform.position;
             }*/

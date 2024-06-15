@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using System.Linq;
 
-public class PlayerController : MonoBehaviour ,IDamageable
+public class PlayerController : MonoBehaviour, IDamageable
 {
-    public PlayerStats PlayerStats;
+    public PlayerStats playerStats;
     public Vector3 CamPosition;
     [SerializeField] List<IEnemy> _enemies = new List<IEnemy>();
     [SerializeField] Transform _playerTransform;
@@ -164,16 +164,16 @@ public class PlayerController : MonoBehaviour ,IDamageable
     }
     public void TakeMeleeDamage(int damage)
     {
-        PlayerStats.TakeMeleeDamage(damage);
+        playerStats.TakeMeleeDamage(damage);
     }
     public void TakeRangedDamage(int damage)
     {
-        PlayerStats.TakeRangeDamage(damage);
+        playerStats.TakeRangeDamage(damage);
     }
     public void RespawnPlayer()
     {
         transform.position = new Vector3(_payloadTransform.position.x - 1f, 0.004f, _payloadTransform.position.z - 2f);
-        PlayerStats.CurrentHP = PlayerStats.MaxHP;
+        playerStats.CurrentHP = playerStats.MaxHP;
     }
 
     public void OnTriggerEnter(Collider other)
@@ -181,10 +181,10 @@ public class PlayerController : MonoBehaviour ,IDamageable
         if (other.tag == "Coin")
         {
             Coin = other.GetComponent<Coins>();
-            PlayerStats.LevelCoins++;
-            PlayerStats.PlayerLevelXP++;
-            PlayerStats.UpdatePlayerCoins();
-            PlayerStats.UpdatePlayerLevel();
+            playerStats.LevelCoins++;
+            playerStats.PlayerLevelXP++;
+            playerStats.UpdatePlayerCoins();
+            playerStats.UpdatePlayerLevel();
         }
     }
 

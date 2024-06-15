@@ -1,8 +1,12 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class Payload : MonoBehaviour
+public class PayloadController : MonoBehaviour, IDamageable
 {
+    public PayloadStats payloadStats;
+    public PayloadWeapon Weapon;
     [SerializeField] public float movementSpeed;
     [SerializeField] public float rotationSpeed;
     [SerializeField] public Vector3 Direction;
@@ -10,15 +14,13 @@ public class Payload : MonoBehaviour
     [SerializeField] public bool startRotating;
     [SerializeField] public bool isRotating;
     [SerializeField] public bool isRotatingRight;
-    void Start()
-    {
-        
-    }
+    
+    public static bool IsPayloadDestoried;
+    
 
-    // Update is called once per frame
     void Update()
     {
-     if (canMove)
+        if (canMove)
         {
             MovePayload();
         }
@@ -77,7 +79,19 @@ public class Payload : MonoBehaviour
     }
 
     
-
+    public void TakeMeleeDamage(int damage)
+    {
+        payloadStats.TakeMeleeDamage(damage);
+    }
+    public void TakeRangedDamage(int damage)
+    {
+        payloadStats.TakeRangeDamage(damage);
+    }
+    public void DestroyPayload()
+    {
+        Destroy(this);
+        SceneManager.LoadScene(0);
+    }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
