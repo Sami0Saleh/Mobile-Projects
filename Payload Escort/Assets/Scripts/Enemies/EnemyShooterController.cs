@@ -20,7 +20,7 @@ public class EnemyShooterController : MonoBehaviour, IEnemy , IDamageable
     public bool isAttacking = false;
     public float detectionRange = 10f;
     public float attackRange = 2f;
-    public float moveSpeed = 1f;
+    public float moveSpeed = 0.7f; // changed from 1 for the build
     public float rotationSpeed = 2f;
     public bool _targetInAttackRange;
     public bool _targetIsInMySight;

@@ -30,22 +30,29 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject != _shooter)
+        if (_shooter != null)
         {
-            if (((_shooter.CompareTag("Player") || _shooter.CompareTag("payload")) && other.CompareTag("enemy")) ||
-                (_shooter.CompareTag("enemy") && (other.CompareTag("Player") || other.CompareTag("payload"))))
+            if (other.gameObject != _shooter)
             {
-                var damageable = other.GetComponent<IDamageable>();
-                if (damageable != null)
+                if (((_shooter.CompareTag("Player") || _shooter.CompareTag("payload")) && other.CompareTag("enemy")) ||
+                    (_shooter.CompareTag("enemy") && (other.CompareTag("Player") || other.CompareTag("payload"))))
                 {
-                    damageable.TakeRangedDamage(_damage);
+                    var damageable = other.GetComponent<IDamageable>();
+                    if (damageable != null)
+                    {
+                        damageable.TakeRangedDamage(_damage);
+                    }
+                    Destroy(gameObject);
                 }
-                Destroy(gameObject);
+                else if (other.tag != null)
+                {
+                    Destroy(gameObject);
+                }
             }
-            else if (other.tag != null)
-            {
-                Destroy(gameObject);
-            }
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 }
