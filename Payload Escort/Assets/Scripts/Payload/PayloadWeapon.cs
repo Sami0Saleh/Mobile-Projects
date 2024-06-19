@@ -16,7 +16,6 @@ public class PayloadWeapon : MonoBehaviour
     private bool _readyToShoot;
     private RaycastHit _rayHit;
     [SerializeField] List<IEnemy> _enemies = new List<IEnemy>();
-    [SerializeField] LineRenderer _detectionRangeCircle;
     [SerializeField] float _detectionRange;
     private GameObject _currentEnemy;
 
@@ -29,7 +28,6 @@ public class PayloadWeapon : MonoBehaviour
 
     void Update()
     {
-        UpdateDetectionRangeCircle();
         DetectEnemy();
         WeaponState();
     }
@@ -88,21 +86,7 @@ public class PayloadWeapon : MonoBehaviour
     {
         _readyToShoot = true;
     }
-    public void UpdateDetectionRangeCircle()
-    {
-        // Calculate points for the detection range circle
-        int pointCount = 50; // Number of points to define the circle
-        _detectionRangeCircle.positionCount = pointCount;
-
-        for (int i = 0; i < pointCount; i++)
-        {
-            float angle = (float)i / pointCount * 360f;
-            float x = Mathf.Sin(angle * Mathf.Deg2Rad) * _detectionRange;
-            float z = Mathf.Cos(angle * Mathf.Deg2Rad) * _detectionRange;
-            Vector3 point = transform.position + new Vector3(x, -0.2f, z);
-            _detectionRangeCircle.SetPosition(i, point);
-        }
-    }
+    
     public void DetectEnemy()
     {
         _enemies.Clear();

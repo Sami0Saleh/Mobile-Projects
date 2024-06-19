@@ -30,10 +30,7 @@ public class LittelGrabberController : MonoBehaviour, IEnemy
     }
     private void Update()
     {
-        if (!PlayerController.IsplayerDead)
-        {
-            enemeyState();
-        }
+        enemeyState();
     }
     private void enemeyState()
     {
@@ -125,7 +122,6 @@ public class LittelGrabberController : MonoBehaviour, IEnemy
     }
     public void Die()
     {
-        PlayerController.EnemyCount--;
         DropObjects();
         Destroy(gameObject);
     }

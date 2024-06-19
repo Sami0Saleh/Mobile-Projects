@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MainManager : MonoBehaviour
 {
-    [SerializeField] UIManager _uiManager;
+    [SerializeField] MainMenuUIManager _uiManager;
     public static int Energy = 20;
     private int MaxEnergy = 20;
 

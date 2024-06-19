@@ -8,44 +8,46 @@ using System.Linq;
 public class PlayerController : MonoBehaviour, IDamageable
 {
     public PlayerStats playerStats;
-    public Vector3 CamPosition;
+
     [SerializeField] List<IEnemy> _enemies = new List<IEnemy>();
-    [SerializeField] Transform _playerTransform;
+    private GameObject _currentEnemy;
+
+    [Header("Transform")]
     [SerializeField] Transform _payloadTransform;
+
+    [Header("Camera")]
+    public Vector3 CamPosition;
     [SerializeField] Transform _camTransform;
-    [SerializeField] Animator _anim;
-    [SerializeField] GameObject _pistol;
-    [SerializeField] GameObject _assaultRifle;
+
+    [Header("Animator")]
+    [SerializeField] Animator _animator;
+
+    [Header("Weapon")]
     public PlayerWeapon Weapon;
+    
     [SerializeField] FloatingJoystick _joystick;
-    //[SerializeField] UpgradeSpawner _upgradeSpawner;
-    [SerializeField] LayerMask _enemyLayer;
+
+    [Header("Detection")]
     [SerializeField] LineRenderer _detectionRangeCircle;
     [SerializeField] float _detectionRange;
+
+    [Header("Movement")]
     [SerializeField] float _moveSpeed;
-    [SerializeField] float _rotationSpeed;
     [SerializeField] bool _isMoving = false;
 
-    private GameObject _currentEnemy;
-    public Coins Coin;
-
-    private Vector3 _moveDirection;
+    [Header("Rotation")]
+    [SerializeField] float _rotationSpeed;
     private Quaternion originalrotation;
 
-    private int _weaponIndex;
-    public int Level = 0;
-    public static int EnemyCount = 3;
-    public static bool IsplayerDead;
+    public Coins Coin;
 
-    private void Awake()
-    {
-        Time.timeScale = 1.0f;
-    }
+
+    public int Level = 0;
+
+    
     private void Start()
     {
         originalrotation = transform.rotation;
-        _weaponIndex = 0;
-        StartCoroutine(SwitchWeapons());
     }
     void Update()
     {
@@ -61,64 +63,19 @@ public class PlayerController : MonoBehaviour, IDamageable
             _isMoving = true;
             Quaternion targetRotation = Quaternion.LookRotation(inputDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
-            _anim.SetBool("isFWD", true);
+            _animator.SetBool("isFWD", true);
         }
         else
         {
             _isMoving = false;
-            _anim.SetBool("isFWD", false);
+            _animator.SetBool("isFWD", false);
         }
 
         Vector3 movement = inputDirection * _moveSpeed * Time.deltaTime;
         transform.Translate(movement, Space.World);
-        // Update camera position to follow the player
-        if (_camTransform != null)
-        {
-            _camTransform.position = transform.position + CamPosition;
-        }
-        if (_currentEnemy != null)
-        {
-            if (!_isMoving)
-            {
-                transform.LookAt(_currentEnemy.transform);
-                Weapon.StartShot();
-                _anim.SetBool("isShooting", true);
-            }
-            else
-            {
-                Weapon.EndShot();
-                _anim.SetBool("isShooting", false);
-            }
-        }
-        else if (_currentEnemy == null)
-        {
-            if (_isMoving)
-            {
-                Weapon.EndShot();
-                _anim.SetBool("isShooting", false);
-            }
-            else
-            {
-                transform.rotation = originalrotation;
-                Weapon.EndShot();
-                _anim.SetBool("isShooting", false);
-            }
-        }
 
-        if (Input.GetKey(KeyCode.Alpha1))
-        {
-            _weaponIndex = 0;
-            _anim.SetBool("isPistol", true);
-            _anim.SetBool("isAssaultRifle", false);
-            StartCoroutine(SwitchWeapons());
-        }
-        if (Input.GetKey(KeyCode.Alpha2))
-        {
-            _weaponIndex = 1;
-            _anim.SetBool("isAssaultRifle", true);
-            _anim.SetBool("isPistol", false);
-            StartCoroutine(SwitchWeapons());
-        }
+        AdjustCam();
+        Shoot();
     }
     public void UpdateDetectionRangeCircle()
     {
@@ -162,6 +119,37 @@ public class PlayerController : MonoBehaviour, IDamageable
             _currentEnemy = null;
         }
     }
+    private void Shoot()
+    {
+        if (_currentEnemy != null)
+        {
+            if (!_isMoving)
+            {
+                transform.LookAt(_currentEnemy.transform);
+                Weapon.StartShot();
+                _animator.SetBool("isShooting", true);
+            }
+            else
+            {
+                Weapon.EndShot();
+                _animator.SetBool("isShooting", false);
+            }
+        }
+        else if (_currentEnemy == null)
+        {
+            if (_isMoving)
+            {
+                Weapon.EndShot();
+                _animator.SetBool("isShooting", false);
+            }
+            else
+            {
+                transform.rotation = originalrotation;
+                Weapon.EndShot();
+                _animator.SetBool("isShooting", false);
+            }
+        }
+    }
     public void TakeMeleeDamage(int damage)
     {
         playerStats.TakeMeleeDamage(damage);
@@ -187,20 +175,12 @@ public class PlayerController : MonoBehaviour, IDamageable
             playerStats.UpdatePlayerLevel();
         }
     }
-
-    IEnumerator SwitchWeapons()
+    private void AdjustCam()
     {
-        yield return new WaitForSeconds(0.1f);
-
-        if (_weaponIndex == 0)
+        // Update camera position to follow the player
+        if (_camTransform != null)
         {
-            _pistol.SetActive(true);
-            _assaultRifle.SetActive(false);
-        }
-        if (_weaponIndex == 1)
-        {
-            _pistol.SetActive(false);
-            _assaultRifle.SetActive(true);
+            _camTransform.position = transform.position + CamPosition;
         }
     }
 }

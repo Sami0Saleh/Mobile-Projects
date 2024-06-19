@@ -7,7 +7,7 @@ public class UpgradeSpawner : MonoBehaviour
     public UpgradeItem[] upgradeItems;
     public int numberOfUpgradesToSpawn = 3;
     [SerializeField] PlayerStats _playerStats;
-    [SerializeField] LevelUIManager _levelUIManager;
+    [SerializeField] GamePlayUIManager _levelUIManager;
     private int _index1 = -1;
     private int _index2 = -1;
     public void SpawnRandomUpgrades()

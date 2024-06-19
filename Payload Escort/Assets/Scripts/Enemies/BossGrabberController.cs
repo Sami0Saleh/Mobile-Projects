@@ -32,10 +32,7 @@ public class BossGrabberController : MonoBehaviour, IEnemy
     }
     private void Update()
     {
-        if (!PlayerController.IsplayerDead)
-        {
-            enemeyState();
-        }
+        enemeyState();
     }
     private void enemeyState()
     {

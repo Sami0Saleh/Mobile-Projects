@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
+using TMPro;
 
 public class EnemyShooterController : MonoBehaviour, IEnemy , IDamageable
 {
@@ -13,6 +15,8 @@ public class EnemyShooterController : MonoBehaviour, IEnemy , IDamageable
     [SerializeField] EnemyWeapon _enemyWeapon;
     [SerializeField] LayerMask _targetLayer;
     [SerializeField] NavMeshAgent _agent;
+    [SerializeField] TextMeshProUGUI _enemyHPText;
+    [SerializeField] Slider _enemyHPSlider;
 
     private int _maxHp = 7;
     public int _currentHp;
@@ -39,6 +43,7 @@ public class EnemyShooterController : MonoBehaviour, IEnemy , IDamageable
     private void Start()
     {
         _currentHp = _maxHp;
+        UpdateHP(_currentHp, _maxHp);
         if (_payloadTransform != null)
         {
             MoveNM(_payloadTransform);
@@ -127,10 +132,10 @@ public class EnemyShooterController : MonoBehaviour, IEnemy , IDamageable
         {
             Die();
         }
+        UpdateHP(_currentHp, _maxHp);
     }
     public void Die()
     {
-        PlayerController.EnemyCount--;
         DropObjects();
         Destroy(gameObject);
     }
@@ -160,5 +165,11 @@ public class EnemyShooterController : MonoBehaviour, IEnemy , IDamageable
     public void SetPayloadTarget(Transform payloadTransform)
     {
         _payloadTransform = payloadTransform;
+    }
+    public void UpdateHP(int currentHP, int maxHP)
+    {
+        _enemyHPText.text = currentHP.ToString();
+        _enemyHPSlider.maxValue = maxHP;
+        _enemyHPSlider.value = currentHP;
     }
 }

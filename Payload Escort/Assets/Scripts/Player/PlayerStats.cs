@@ -5,8 +5,9 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     [SerializeField] PlayerController _playerController;
-    [SerializeField] LevelUIManager _levelUIManager;
+    [SerializeField] GamePlayUIManager _levelUIManager;
     [SerializeField] NewUpgradeSpawner _newUpgradeSpawner;
+    //[SerializeField] UpgradeSpawner _upgradeSpawner;
 
 
     public int MaxHP = 1000;
@@ -52,8 +53,6 @@ public class PlayerStats : MonoBehaviour
             PlayerLevel++;
             PlayerLevelXP -= PlayerLevelMaxXP;
             PlayerLevelMaxXP += 25;
-            //_newUpgradeSpawner.OpenUpgrades();
-            // _upgradeSpawner.SpawnRandomUpgrades();
             _newUpgradeSpawner.OpenUpgradeUI();
         }
         _levelUIManager.UpdatePlayerLevel(PlayerLevel);
