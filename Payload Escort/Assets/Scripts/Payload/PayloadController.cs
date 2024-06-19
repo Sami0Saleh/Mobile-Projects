@@ -1,19 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PayloadController : MonoBehaviour, IDamageable
 {
     public PayloadStats payloadStats;
+
+    [SerializeField] Transform _playerTransform;
+
     public PayloadWeapon Weapon;
-    [SerializeField] public float movementSpeed;
-    [SerializeField] public float rotationSpeed;
-    [SerializeField] public Vector3 Direction;
-    [SerializeField] public bool canMove;
-    [SerializeField] public bool startRotating;
+
+    [SerializeField] float movementSpeed;
+    [SerializeField] float speedMultiplier;
+    [SerializeField] bool canMove;
+    [SerializeField] Vector3 Direction;
+    
+    [SerializeField] float rotationSpeed;
+    [SerializeField] bool startRotating;
     [SerializeField] public bool isRotating;
-    [SerializeField] public bool isRotatingRight;
+    [SerializeField] bool isRotatingRight;
     
     public static bool IsPayloadDestoried;
     
@@ -24,20 +32,43 @@ public class PayloadController : MonoBehaviour, IDamageable
         {
             MovePayload();
         }
-     else if (startRotating) 
+        else if (startRotating)
         {
-         if (isRotatingRight)
-            { RotatePayloadRight();}
-        else { RotatePayloadLeft(); }
+            if (isRotatingRight)
+            { RotatePayloadRight(); }
+            else { RotatePayloadLeft(); }
         }
-        
+
     }
 
 
     public void MovePayload()
     {
-        transform.Translate(Direction * movementSpeed * Time.deltaTime);
+        float distance = Vector3.Distance(transform.position, _playerTransform.position);
+        if (distance <= 1f)
+        {
+            transform.Translate(Direction * (movementSpeed + speedMultiplier)* Time.deltaTime);
+        }
+        else
+        {
+            transform.Translate(Direction * movementSpeed * Time.deltaTime);
+        }
     }
+
+    /*public void RotatePayload(Quaternion targetRotation, float duration)
+    {
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime / duration);
+
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "path")
+        {
+            quaternion targetRotation = new Quaternion(other.transform.rotation.x, other.transform.rotation.y * -1, other.transform.rotation.z, other.transform.rotation.w);
+            RotatePayload(targetRotation, rotationSpeed);
+        }
+    }*/
 
     public void RotatePayloadRight()
     {
@@ -102,7 +133,7 @@ public class PayloadController : MonoBehaviour, IDamageable
     {
         if (other.tag == "path" && !startRotating)
         {
-             canMove = true;
+            canMove = true;
         }
         else if (other.tag == "right")
         {

@@ -897,11 +897,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   payloadStats: {fileID: 7394003216940102794}
+  _playerTransform: {fileID: 0}
   Weapon: {fileID: 895672452216992837}
   movementSpeed: 0.2
-  rotationSpeed: 1
-  Direction: {x: 0, y: 0, z: 1}
+  speedMultiplier: 0.3
   canMove: 0
+  Direction: {x: 0, y: 0, z: 1}
+  rotationSpeed: 1
   startRotating: 0
   isRotating: 0
   isRotatingRight: 0
