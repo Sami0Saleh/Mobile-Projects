@@ -46,7 +46,8 @@ public class EnemyShooterController : MonoBehaviour, IEnemy , IDamageable
         UpdateHP(_currentHp, _maxHp);
         if (_payloadTransform != null)
         {
-            MoveNM(_payloadTransform);
+            MoveNM(_payloadTransform); 
+
         }
     }
     private void Update()

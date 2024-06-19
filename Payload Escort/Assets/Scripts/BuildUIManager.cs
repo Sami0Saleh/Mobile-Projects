@@ -18,11 +18,14 @@ public class BuildUIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (payload.LastWaypoint)
+        if (payload != null)
         {
-            EndGameCanvas.gameObject.SetActive(true);
-            Time.timeScale = 0;
-            
+            if (payload.LastWaypoint)
+            {
+                EndGameCanvas.gameObject.SetActive(true);
+                Time.timeScale = 0;
+
+            }
         }
     }
 
