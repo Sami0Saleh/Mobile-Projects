@@ -9,11 +9,26 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private int _damage;
     [SerializeField] private AudioSource _bulletSound;
+    [SerializeField] private MeshRenderer _bulletMesh;
+    [SerializeField] Material _playerBulletMaterial;
+    [SerializeField] Material _enemyBulletMaterial;
+    [SerializeField] Light _bulletLight;
     private GameObject _shooter;
 
     private void Start()
     {
+        if(_shooter.CompareTag("enemy"))
+        {
+            _bulletMesh.material = _enemyBulletMaterial;
+            _bulletLight.color = Color.red;
+        }
+        else
+        {
+            _bulletMesh.material = _playerBulletMaterial;
+            _bulletLight.color = Color.green;
+        }
         _bulletSound.Play();
+        StartCoroutine(BulletDestroy());
     }
 
     public void Initialize(float speed, int damage, GameObject shooter)
@@ -54,5 +69,10 @@ public class Bullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+    private IEnumerator BulletDestroy()
+    {
+        yield return new WaitForSecondsRealtime(1);
+        Destroy(gameObject);
     }
 }

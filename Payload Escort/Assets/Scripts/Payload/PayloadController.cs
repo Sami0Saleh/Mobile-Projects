@@ -15,18 +15,87 @@ public class PayloadController : MonoBehaviour, IDamageable
 
     [SerializeField] float movementSpeed;
     [SerializeField] float speedMultiplier;
-    [SerializeField] bool canMove;
-    [SerializeField] Vector3 Direction;
+    [SerializeField] List<Waypoint> waypoints;
+    private int currentWaypointIndex = 0;
+    public bool LastWaypoint = false;
+
+    /*[SerializeField] bool canMove;
+    [SerializeField] Vector3 Direction;*/
     
     [SerializeField] float rotationSpeed;
-    [SerializeField] bool startRotating;
-    [SerializeField] public bool isRotating;
-    [SerializeField] bool isRotatingRight;
+    [SerializeField] bool isRotating = false;
+    /*[SerializeField] bool startRotating;
+    [SerializeField] bool isRotatingRight;*/
     
     public static bool IsPayloadDestoried;
-    
 
     void Update()
+    {
+        if (currentWaypointIndex < waypoints.Count)
+        {
+            MovePayload();
+        }
+        else
+        {
+            LastWaypoint = true;
+        }
+    }
+
+    public void MovePayload()
+    {
+        if (currentWaypointIndex >= waypoints.Count) return;
+
+        Waypoint targetWaypoint = waypoints[currentWaypointIndex];
+        float distance = Vector3.Distance(transform.position, _playerTransform.position);
+
+        // Move towards the waypoint
+        float speed = distance <= 1f ? movementSpeed + speedMultiplier : movementSpeed;
+        Vector3 direction = (targetWaypoint.waypointTransform.position - transform.position).normalized;
+        transform.position = Vector3.MoveTowards(transform.position, targetWaypoint.waypointTransform.position, speed * Time.deltaTime);
+
+        // Rotate towards the waypoint
+        if (!isRotating)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
+
+        // Check if the payload has reached the waypoint
+        if (Vector3.Distance(transform.position, targetWaypoint.waypointTransform.position) < 0.1f)
+        {
+            currentWaypointIndex++;
+        }
+    }
+
+    public void TakeMeleeDamage(int damage)
+    {
+        payloadStats.TakeMeleeDamage(damage);
+    }
+
+    public void TakeRangedDamage(int damage)
+    {
+        payloadStats.TakeRangeDamage(damage);
+    }
+
+    public void DestroyPayload()
+    {
+        Destroy(this);
+        SceneManager.LoadScene(0);
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (waypoints != null && waypoints.Count > 0)
+        {
+            Gizmos.color = Color.green;
+            for (int i = 0; i < waypoints.Count - 1; i++)
+            {
+                Gizmos.DrawLine(waypoints[i].waypointTransform.position, waypoints[i + 1].waypointTransform.position);
+            }
+        }
+    }
+
+    /*void Update()
     {
         if (canMove)
         {
@@ -55,7 +124,7 @@ public class PayloadController : MonoBehaviour, IDamageable
         }
     }
 
-    /*public void RotatePayload(Quaternion targetRotation, float duration)
+    *//*public void RotatePayload(Quaternion targetRotation, float duration)
     {
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime / duration);
 
@@ -68,7 +137,7 @@ public class PayloadController : MonoBehaviour, IDamageable
             quaternion targetRotation = new Quaternion(other.transform.rotation.x, other.transform.rotation.y * -1, other.transform.rotation.z, other.transform.rotation.w);
             RotatePayload(targetRotation, rotationSpeed);
         }
-    }*/
+    }*//*
 
     public void RotatePayloadRight()
     {
@@ -147,6 +216,6 @@ public class PayloadController : MonoBehaviour, IDamageable
             startRotating = true;
             isRotatingRight = false;
         }
-    }
+    }*/
 
 }

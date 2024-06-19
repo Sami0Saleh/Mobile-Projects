@@ -8,7 +8,7 @@ public class BuildUIManager : MonoBehaviour
     [SerializeField] private Canvas StartGameCanvas;
     [SerializeField] private Canvas EndGameCanvas;
 
-    [SerializeField] private Transform payload;
+    [SerializeField] private PayloadController payload;
 
     void Start()
     {
@@ -18,7 +18,7 @@ public class BuildUIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (payload.position.z > 18)
+        if (payload.LastWaypoint)
         {
             EndGameCanvas.gameObject.SetActive(true);
             Time.timeScale = 0;

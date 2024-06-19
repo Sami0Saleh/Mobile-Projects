@@ -122,6 +122,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 3396863131924670427}
   m_SourcePrefab: {fileID: 100100000, guid: eb059ff580401ca4ca0d9a90389458e7, type: 3}
+--- !u!23 &4826156898097280330 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: eb059ff580401ca4ca0d9a90389458e7,
+    type: 3}
+  m_PrefabInstance: {fileID: 6140765299265317326}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6483222281551877279 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: eb059ff580401ca4ca0d9a90389458e7,
@@ -143,6 +149,12 @@ MonoBehaviour:
   _speed: 0
   _damage: 0
   _bulletSound: {fileID: 8934704550430988527}
+  _bulletMesh: {fileID: 4826156898097280330}
+  _playerBulletMaterial: {fileID: 2100000, guid: 69284ac294244e344a365eb237acf9ae,
+    type: 2}
+  _enemyBulletMaterial: {fileID: 2100000, guid: d57a601a92c048847a0634f1e9f38ae6,
+    type: 2}
+  _bulletLight: {fileID: 374960619569263090}
 --- !u!136 &-3241770405127882002
 CapsuleCollider:
   m_ObjectHideFlags: 0
