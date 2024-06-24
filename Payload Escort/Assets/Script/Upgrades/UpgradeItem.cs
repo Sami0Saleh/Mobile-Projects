@@ -15,6 +15,7 @@ public class UpgradeItem : ScriptableObject
     public GameObject prefab;
     public float value;
     private PlayerStats _playerStats;
+    private PayloadStats _payloadStats;
     private NewUpgradeSpawner _newUpgradeSpawner;
 
     public void ApplyUpgrade()
@@ -37,6 +38,11 @@ public class UpgradeItem : ScriptableObject
                 _playerStats.UpdateFireRate(value);
                 _newUpgradeSpawner.CloseUpgradeUI();
                 break;
+            case UpgradeType.PayloadFire:
+                Debug.Log("Upgrading Payload Fire");
+                _payloadStats.IncreaseDamage((int)value);
+                _newUpgradeSpawner.CloseUpgradeUI();
+                break;
             default:
                 Debug.LogWarning("Unknown upgrade type: " + upgradeType);
                 break;
@@ -45,6 +51,10 @@ public class UpgradeItem : ScriptableObject
     public void SetPlayer(PlayerStats playerStats)
     {
         _playerStats = playerStats;
+    }
+    public void SetPayload(PayloadStats payloadStats)
+    {
+        _payloadStats = payloadStats;
     }
     public void SetUIManager(NewUpgradeSpawner newUpgradeSpawner)
     {
@@ -55,5 +65,6 @@ public enum UpgradeType
 {
     Damage,
     Health,
-    FireRate
+    FireRate,
+    PayloadFire
 }

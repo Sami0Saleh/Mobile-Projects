@@ -143,7 +143,8 @@ public class EnemyShooterController : MonoBehaviour, IEnemy , IDamageable
     void DropObjects()
     {
         //Randomize the number of objects dropped
-        int numObjectsToDrop = Random.Range(1, 6);
+        //int numObjectsToDrop = Random.Range(1, 6);
+        int numObjectsToDrop = 25;
         
 
         for (int i = 0; i < numObjectsToDrop; i++)

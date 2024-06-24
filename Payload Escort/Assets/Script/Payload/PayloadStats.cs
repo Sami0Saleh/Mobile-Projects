@@ -7,7 +7,7 @@ public class PayloadStats : MonoBehaviour
 {
     [SerializeField] PayloadController _payloadController;
     [SerializeField] GamePlayUIManager _levelUIManager;
-    //[SerializeField] NewUpgradeSpawner _newUpgradeSpawner;
+    [SerializeField] NewUpgradeSpawner _newUpgradeSpawner;
 
     public int MaxHP = 500;
     public int CurrentHP;

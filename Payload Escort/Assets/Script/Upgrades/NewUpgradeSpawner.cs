@@ -13,6 +13,7 @@ public class NewUpgradeSpawner : MonoBehaviour
     [SerializeField] Button[] oldUpgradeButtons;
 
     [SerializeField] PlayerStats _playerStats;
+    [SerializeField] PayloadStats _payloadStats;
 
     private int _index1 = -1;
     private int _index2 = -1;
@@ -41,6 +42,7 @@ public class NewUpgradeSpawner : MonoBehaviour
     public void SetUpgrade(int index)
     {
         UpgradesSO[index].SetPlayer(_playerStats);
+        UpgradesSO[index].SetPayload(_payloadStats);
         UpgradesSO[index].SetUIManager(this);
     }
 
