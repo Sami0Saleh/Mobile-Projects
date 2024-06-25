@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 598756be618c668498e1785b7f305495, type: 3}
-  m_Name: UpgradeDamage
+  m_Name: UpgradePlayeBloodLust
   m_EditorClassIdentifier: 
-  UpgradeSprite: {fileID: 21300000, guid: d5e77d1280ed1774f863444c9d8ba924, type: 3}
-  itemName: Damage
-  description: Add 2 Damage
-  upgradeType: 0
-  prefab: {fileID: 4815702515555983607, guid: 9e48d68950a219546bc08ba3d634ba7e, type: 3}
-  value: 2
+  UpgradeSprite: {fileID: 21300000, guid: 010a6e5305fa7004f89c5d317b7b47d4, type: 3}
+  itemName: 
+  description: 
+  upgradeTarget: 0
+  upgradeType: 3
+  prefab: {fileID: 8932792478528274029, guid: 59b46229b0c2cd7499808fc89b01bdfd, type: 3}
+  value: 5

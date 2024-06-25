@@ -10,6 +10,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] PlayerController _playerController;
     [SerializeField] Transform _playerTransform;
     [SerializeField] Transform _payloadTransform;
+    [SerializeField] PlayerStats _playerStats;
 
     private void Awake()
     {
@@ -20,6 +21,7 @@ public class EnemyController : MonoBehaviour
             enemy.SetPlayer(_playerController);
             enemy.SetPlayerTransform(_playerTransform);
             enemy.SetPayloadTarget(_payloadTransform);
+            enemy.SetPlayerStats(_playerStats);
         }
     }
     private void Update()
@@ -31,6 +33,7 @@ public class EnemyController : MonoBehaviour
             enemy.SetPlayer(_playerController);
             enemy.SetPlayerTransform(_playerTransform);
             enemy.SetPayloadTarget(_payloadTransform);
+            enemy.SetPlayerStats(_playerStats);
         }
     }
 }

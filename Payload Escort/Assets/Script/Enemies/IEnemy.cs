@@ -11,6 +11,7 @@ public interface IEnemy
     void MoveTowardsPlayer();
     void Die();
     void SetPlayer(PlayerController player);
+    void SetPlayerStats(PlayerStats playerStats);
     void SetPlayerTransform(Transform playerTransform);
     void SetPayloadTarget(Transform payloadTransform);
 }

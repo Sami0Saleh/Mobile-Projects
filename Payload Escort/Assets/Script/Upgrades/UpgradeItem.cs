@@ -11,6 +11,7 @@ public class UpgradeItem : ScriptableObject
     [SerializeField] public Sprite UpgradeSprite;
     public string itemName;
     public string description;
+    public UpgradeTarget upgradeTarget;
     public UpgradeType upgradeType;
     public GameObject prefab;
     public float value;
@@ -20,33 +21,110 @@ public class UpgradeItem : ScriptableObject
 
     public void ApplyUpgrade()
     {
-        
-        switch (upgradeType)
+        switch(upgradeTarget)
         {
-            case UpgradeType.Damage:
-                Debug.Log("Upgrading Damage");
-                _playerStats.IncreaseDamage((int)value);
-                _newUpgradeSpawner.CloseUpgradeUI();
+            case UpgradeTarget.Player:
+                switch (upgradeType)
+                {
+                    case UpgradeType.Damage:
+                        Debug.Log("Upgrading Damage");
+                        _playerStats.IncreaseDamage((int)value);
+                        _newUpgradeSpawner.CloseUpgradeUI();
+                        break;
+                    case UpgradeType.Health:
+                        Debug.Log("Upgrading Health");
+                        _playerStats.IncreaseHealth((int)value);
+                        _newUpgradeSpawner.CloseUpgradeUI();
+                        break;
+                    case UpgradeType.AttackSpeed:
+                        Debug.Log("Upgrading AttackSpeed");
+                        _playerStats.UpdateFireRate(value);
+                        _newUpgradeSpawner.CloseUpgradeUI();
+                        break;
+                    case UpgradeType.BloodLust:
+                        Debug.Log("BloodLust");
+                        _playerStats.BloodLust();
+                        _newUpgradeSpawner.CloseUpgradeUI();
+                        break;
+                    case UpgradeType.InstantKill:
+                        Debug.Log("InstantKill");
+                        _playerStats.InstantKill((int)value);
+                        _newUpgradeSpawner.CloseUpgradeUI();
+                        break;
+                    case UpgradeType.Shield:
+                        Debug.Log("Shield");
+                        _playerStats.AddSheild((int)value);
+                        _newUpgradeSpawner.CloseUpgradeUI();
+                        break;
+                    case UpgradeType.DoubleShot:
+                        Debug.Log("DoubleShot");
+                        _playerStats.DoubleShot();
+                        _newUpgradeSpawner.CloseUpgradeUI();
+                        break;
+                    default:
+                        Debug.LogWarning("Unknown upgrade type: " + upgradeType);
+                        break;
+                }
                 break;
-            case UpgradeType.Health:
-                Debug.Log("Upgrading Health");
-                _playerStats.IncreaseHealth((int)value);
-                _newUpgradeSpawner.CloseUpgradeUI();
+            case UpgradeTarget.Payload:
+                switch (upgradeType)
+                {
+                    case UpgradeType.Ballista:
+                        Debug.Log("Activating Payload Weapon");
+                        _payloadStats.ActiveBallista();
+                        if (PayloadStats.IsBallistaActive)
+                        {
+                            _newUpgradeSpawner.UpgradesSO.RemoveAt(0);
+                            _newUpgradeSpawner.oldUpgradeButtons.RemoveAt(0);
+                        }
+                        _newUpgradeSpawner.CloseUpgradeUI();
+                        break;
+                    case UpgradeType.Shield:
+                        Debug.Log("Shield");
+                        _payloadStats.AddSheild((int)value);
+                        _newUpgradeSpawner.CloseUpgradeUI();
+                        break;
+                    case UpgradeType.Flee:
+                        Debug.Log("Flee");
+                        _payloadStats.StartFlee((int)value);
+                        _newUpgradeSpawner.CloseUpgradeUI();
+                        break;
+                    default:
+                        Debug.LogWarning("Unknown upgrade type: " + upgradeType);
+                        break;
+                }
                 break;
-            case UpgradeType.FireRate:
-                Debug.Log("Upgrading FireRate");
-                _playerStats.UpdateFireRate(value);
-                _newUpgradeSpawner.CloseUpgradeUI();
-                break;
-            case UpgradeType.PayloadFire:
-                Debug.Log("Upgrading Payload Fire");
-                _payloadStats.IncreaseDamage((int)value);
-                _newUpgradeSpawner.CloseUpgradeUI();
+            case UpgradeTarget.Both:
+                switch (upgradeType)
+                {
+                    case UpgradeType.Damage:
+                        Debug.Log("Upgrading Both Damage");
+                        _playerStats.IncreaseDamage((int)value);
+                        _payloadStats.IncreaseDamage((int)value);
+                        _newUpgradeSpawner.CloseUpgradeUI();
+                        break;
+                    case UpgradeType.Health:
+                        Debug.Log("Upgrading Both Health");
+                        _playerStats.IncreaseHealth((int)value);
+                        _payloadStats.IncreaseHealth((int)value);
+                        _newUpgradeSpawner.CloseUpgradeUI();
+                        break;
+                    case UpgradeType.AttackSpeed:
+                        Debug.Log("Upgrading Both AttackSpeed");
+                        _playerStats.IncreaseDamage((int)value);
+                        _payloadStats.IncreaseDamage((int)value);
+                        _newUpgradeSpawner.CloseUpgradeUI();
+                        break;
+                    default:
+                        Debug.LogWarning("Unknown upgrade type: " + upgradeType);
+                        break;
+                }
                 break;
             default:
-                Debug.LogWarning("Unknown upgrade type: " + upgradeType);
+                Debug.LogWarning("Unknown upgrade target: " + upgradeTarget);
                 break;
         }
+        
     }
     public void SetPlayer(PlayerStats playerStats)
     {
@@ -65,6 +143,17 @@ public enum UpgradeType
 {
     Damage,
     Health,
-    FireRate,
-    PayloadFire
+    AttackSpeed,
+    BloodLust,
+    InstantKill,
+    Shield,
+    Ballista,
+    Flee,
+    DoubleShot
+}
+public enum UpgradeTarget
+{
+    Player,
+    Payload,
+    Both
 }

@@ -7,6 +7,7 @@ public class LittelGrabberController : MonoBehaviour, IEnemy
     private Transform _playerTransform;
     private Transform _payloadTransform;
     private PlayerController _playerController;
+    private PlayerStats _playerStats;
     [SerializeField] Animator animator;
     [SerializeField] LayerMask _player;
     [SerializeField] LayerMask obstacleLayer;
@@ -143,6 +144,11 @@ public class LittelGrabberController : MonoBehaviour, IEnemy
     public void SetPlayer(PlayerController player)
     {
         _playerController = player;
+    }
+
+    public void SetPlayerStats(PlayerStats playerStats)
+    {
+        _playerStats = playerStats;
     }
 
     public void SetPlayerTransform(Transform playerTransform)

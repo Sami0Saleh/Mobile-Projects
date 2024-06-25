@@ -76,6 +76,11 @@ public class PlayerController : MonoBehaviour, IDamageable
 
         AdjustCam();
         Shoot();
+        if (PlayerStats.IsDoubleShot)
+        {
+            StartCoroutine(DoubleShot());
+        }
+        
     }
     public void UpdateDetectionRangeCircle()
     {
@@ -182,6 +187,11 @@ public class PlayerController : MonoBehaviour, IDamageable
         {
             _camTransform.position = transform.position + CamPosition;
         }
+    }
+    public IEnumerator DoubleShot()
+    {
+        yield return new WaitForSecondsRealtime(0.2f);
+        Shoot();
     }
 }
 

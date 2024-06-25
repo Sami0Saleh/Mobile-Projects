@@ -8,6 +8,7 @@ public class BossGrabberController : MonoBehaviour, IEnemy
     private Transform _playerTransform;
     private Transform _payloadTransform;
     private PlayerController _playerController;
+    private PlayerStats _playerStats;
     [SerializeField] Animator animator;
     [SerializeField] LayerMask _player;
     [SerializeField] LayerMask obstacleLayer;
@@ -137,7 +138,12 @@ public class BossGrabberController : MonoBehaviour, IEnemy
             _playerController.TakeMeleeDamage(Damage);
         }
     }
-    
+
+    public void SetPlayerStats(PlayerStats playerStats)
+    {
+        _playerStats = playerStats;
+    }
+
     public void SetPlayer(PlayerController player)
     {
         _playerController = player;

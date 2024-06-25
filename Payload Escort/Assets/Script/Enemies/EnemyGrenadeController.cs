@@ -8,6 +8,7 @@ public class EnemyGrenadeController : MonoBehaviour, IEnemy
     public Transform PlayerTransform;
     public Transform PayloadTransform;
     private PlayerController _playerController;
+    private PlayerStats _playerStats;
     [SerializeField] EnemyWeaponGrenade _enemyWeaponGrenade;
     [SerializeField] Animator animator;
     [SerializeField] GameObject _droppableObjectPrefab;
@@ -174,6 +175,11 @@ public class EnemyGrenadeController : MonoBehaviour, IEnemy
     public void SetPlayer(PlayerController player)
     {
         _playerController = player;
+    }
+
+    public void SetPlayerStats(PlayerStats playerStats)
+    {
+        _playerStats = playerStats;
     }
 
     public void SetPlayerTransform(Transform playerTransform)

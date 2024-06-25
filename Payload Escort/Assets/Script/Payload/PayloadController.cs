@@ -13,7 +13,7 @@ public class PayloadController : MonoBehaviour, IDamageable
 
     public PayloadWeapon Weapon;
 
-    [SerializeField] float movementSpeed;
+    public float MovementSpeed;
     [SerializeField] float speedMultiplier;
     [SerializeField] List<Waypoint> waypoints;
     private int currentWaypointIndex = 0;
@@ -49,7 +49,7 @@ public class PayloadController : MonoBehaviour, IDamageable
         float distance = Vector3.Distance(transform.position, _playerTransform.position);
 
         // Move towards the waypoint
-        float speed = distance <= 1f ? movementSpeed + speedMultiplier : movementSpeed;
+        float speed = distance <= 1f ? MovementSpeed + speedMultiplier : MovementSpeed;
         Vector3 direction = (targetWaypoint.waypointTransform.position - transform.position).normalized;
         transform.position = Vector3.MoveTowards(transform.position, targetWaypoint.waypointTransform.position, speed * Time.deltaTime);
 
@@ -116,11 +116,11 @@ public class PayloadController : MonoBehaviour, IDamageable
         float distance = Vector3.Distance(transform.position, _playerTransform.position);
         if (distance <= 1f)
         {
-            transform.Translate(Direction * (movementSpeed + speedMultiplier)* Time.deltaTime);
+            transform.Translate(Direction * (MovementSpeed + speedMultiplier)* Time.deltaTime);
         }
         else
         {
-            transform.Translate(Direction * movementSpeed * Time.deltaTime);
+            transform.Translate(Direction * MovementSpeed * Time.deltaTime);
         }
     }
 

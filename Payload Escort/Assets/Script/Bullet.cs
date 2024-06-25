@@ -13,11 +13,11 @@ public class Bullet : MonoBehaviour
     [SerializeField] Material _playerBulletMaterial;
     [SerializeField] Material _enemyBulletMaterial;
     [SerializeField] Light _bulletLight;
-    private GameObject _shooter;
+    public GameObject Shooter;
 
     private void Start()
     {
-        if(_shooter.CompareTag("enemy"))
+        if(Shooter.CompareTag("enemy"))
         {
             _bulletMesh.material = _enemyBulletMaterial;
             _bulletLight.color = Color.red;
@@ -35,7 +35,7 @@ public class Bullet : MonoBehaviour
     {
         _speed = speed;
         _damage = damage;
-        _shooter = shooter;
+        Shooter = shooter;
     }
 
     void Update()
@@ -45,17 +45,40 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (_shooter != null)
+        if (Shooter != null)
         {
-            if (other.gameObject != _shooter)
+            if (other.gameObject != Shooter)
             {
-                if (((_shooter.CompareTag("Player") || _shooter.CompareTag("payload")) && other.CompareTag("enemy")) ||
-                    (_shooter.CompareTag("enemy") && (other.CompareTag("Player") || other.CompareTag("payload"))))
+                if (((Shooter.CompareTag("Player") || Shooter.CompareTag("payload")) && other.CompareTag("enemy")) ||
+                    (Shooter.CompareTag("enemy") && (other.CompareTag("Player") || other.CompareTag("payload"))))
                 {
                     var damageable = other.GetComponent<IDamageable>();
                     if (damageable != null)
                     {
-                        damageable.TakeRangedDamage(_damage);
+                        if (Shooter.CompareTag("Player"))
+                        {
+                            if (PlayerStats.IsInstantKill)
+                            {
+                                int ran = Random.Range(1, 4);
+                                if (ran == 1)
+                                {
+                                    Debug.Log("InstantKill");
+                                    Destroy(other);
+                                }
+                                else
+                                {
+                                    damageable.TakeRangedDamage(_damage);
+                                }
+                            }
+                            else
+                            {
+                                damageable.TakeRangedDamage(_damage);
+                            }
+                        }
+                        else
+                        {
+                            damageable.TakeRangedDamage(_damage);
+                        }
                     }
                     Destroy(gameObject);
                 }

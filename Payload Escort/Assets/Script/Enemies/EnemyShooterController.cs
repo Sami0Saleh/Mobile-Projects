@@ -10,6 +10,8 @@ public class EnemyShooterController : MonoBehaviour, IEnemy , IDamageable
     private Transform _playerTransform;
     private Transform _payloadTransform;
     private PlayerController _playerController;
+    private PlayerStats _playerStats;
+    private Bullet _bullet;
     [SerializeField] Animator animator;
     [SerializeField] GameObject _droppableObjectPrefab;
     [SerializeField] EnemyWeapon _enemyWeapon;
@@ -159,6 +161,11 @@ public class EnemyShooterController : MonoBehaviour, IEnemy , IDamageable
         _playerController = player;
     }
 
+    public void SetPlayerStats(PlayerStats playerStats)
+    {
+        _playerStats = playerStats;
+    }
+
     public void SetPlayerTransform(Transform playerTransform)
     {
         _playerTransform = playerTransform;
@@ -173,5 +180,17 @@ public class EnemyShooterController : MonoBehaviour, IEnemy , IDamageable
         _enemyHPText.text = currentHP.ToString();
         _enemyHPSlider.maxValue = maxHP;
         _enemyHPSlider.value = currentHP;
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("bullet"))
+        {
+            _bullet = other.GetComponent<Bullet>();
+            if (_bullet.Shooter.CompareTag("Player") && PlayerStats.IsBloodLust)
+            {
+                _playerStats.BloodLustHealth(_maxHp * 20 / 100);
+            }
+            return;
+        }
     }
 }

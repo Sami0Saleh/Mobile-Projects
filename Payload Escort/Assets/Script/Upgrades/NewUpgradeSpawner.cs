@@ -8,9 +8,9 @@ public class NewUpgradeSpawner : MonoBehaviour
 {
     [SerializeField] Canvas UpgradeUI;
 
-    [SerializeField] UpgradeItem[] UpgradesSO; 
+    public List<UpgradeItem> UpgradesSO; 
     [SerializeField] Button[] newUpgradeButtons;
-    [SerializeField] Button[] oldUpgradeButtons;
+    public List<Button> oldUpgradeButtons;
 
     [SerializeField] PlayerStats _playerStats;
     [SerializeField] PayloadStats _payloadStats;
@@ -20,7 +20,9 @@ public class NewUpgradeSpawner : MonoBehaviour
 
     public void SetUpgradesInUI()
     {
-        int index = Random.Range(0, oldUpgradeButtons.Length);
+        
+
+        int index = Random.Range(0, oldUpgradeButtons.Count);
         _index1 = index;
         foreach (var button in newUpgradeButtons)
         {
@@ -29,10 +31,10 @@ public class NewUpgradeSpawner : MonoBehaviour
             button.onClick.RemoveAllListeners();
             button.onClick = oldUpgradeButtons[index].onClick;
             button.onClick.AddListener(CloseUpgradeUI);
-            index = Random.Range(0, oldUpgradeButtons.Length);
+            index = Random.Range(0, oldUpgradeButtons.Count);
             while (index == _index1 || index == _index2)
             {
-                index = Random.Range(0, oldUpgradeButtons.Length);
+                index = Random.Range(0, oldUpgradeButtons.Count);
             }
             _index2 = index;
         }

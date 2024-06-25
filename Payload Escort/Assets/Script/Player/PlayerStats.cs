@@ -17,6 +17,10 @@ public class PlayerStats : MonoBehaviour
     public int PlayerLevelXP = 0;
     public int PlayerLevelMaxXP;
 
+    public static bool IsInstantKill = false;
+    public static bool IsBloodLust = false;
+    public static bool IsDoubleShot = false;
+
 
     private void Awake()
     {
@@ -68,6 +72,18 @@ public class PlayerStats : MonoBehaviour
         CurrentHP += value;
         _levelUIManager.UpdatePlayerHP(CurrentHP, MaxHP);
     }
+    public void BloodLustHealth(int value)
+    {
+        if (CurrentHP < MaxHP)
+        {
+            CurrentHP += value;
+            if (CurrentHP >= MaxHP) 
+            {
+                CurrentHP = MaxHP;
+            }
+        }
+        _levelUIManager.UpdatePlayerHP(CurrentHP, MaxHP);
+    }
     public void UpdateFireRate(float value)
     {
         _playerController.Weapon.FireRate -= value;
@@ -76,8 +92,44 @@ public class PlayerStats : MonoBehaviour
     {
         _levelUIManager.UpdatePlayerCoins(LevelCoins);
     }
+
+    public void AddSheild(int value)
+    {
+
+        StartCoroutine(RemoveShield(value));
+    }
+
+    public void BloodLust()
+    {
+        IsBloodLust = true;
+    }
+    public void DoubleShot()
+    {
+        IsDoubleShot = true;
+        _playerController.Weapon.BulletDamage -= (_playerController.Weapon.BulletDamage * 25 / 100);
+    }
+
+    public void InstantKill(int value)
+    {
+        IsInstantKill = true;
+        StartCoroutine(RemoveShield(value));
+    }
+
     public void UpdatePlayerMetaCoins()
     {
         Meta.Coins += LevelCoins;
+    }
+
+    public IEnumerator RemoveShield(int value)
+    {
+        yield return new WaitForSecondsRealtime(value);
+
+    }
+
+    public IEnumerator StopInstantKill(int value)
+    {
+        yield return new WaitForSecondsRealtime(value);
+        IsInstantKill = false;
+        
     }
 }
