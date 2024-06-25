@@ -11,17 +11,17 @@ PrefabInstance:
     - target: {fileID: 5959063835309264421, guid: acebbbb5fa16d374096820e2539f46df,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.2
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 5959063835309264421, guid: acebbbb5fa16d374096820e2539f46df,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.6
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 5959063835309264421, guid: acebbbb5fa16d374096820e2539f46df,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.2
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 5959063835309264421, guid: acebbbb5fa16d374096820e2539f46df,
         type: 3}
@@ -81,7 +81,7 @@ PrefabInstance:
     - target: {fileID: 6483222281551877279, guid: acebbbb5fa16d374096820e2539f46df,
         type: 3}
       propertyPath: m_Name
-      value: LazerBullet Variant
+      value: New Bullet
       objectReference: {fileID: 0}
     - target: {fileID: 7285983522189427072, guid: acebbbb5fa16d374096820e2539f46df,
         type: 3}
