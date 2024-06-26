@@ -11,6 +11,8 @@ public class PayloadController : MonoBehaviour, IDamageable
 
     [SerializeField] Transform _playerTransform;
 
+    [SerializeField] PayloadIndicator _payloadIndicator;
+
     public PayloadWeapon Weapon;
 
     public float MovementSpeed;
@@ -29,6 +31,10 @@ public class PayloadController : MonoBehaviour, IDamageable
     
     public static bool IsPayloadDestoried;
 
+    private void Awake()
+    {
+        _payloadIndicator.SetTarget(transform.position);
+    }
     void Update()
     {
         if (currentWaypointIndex < waypoints.Count)
