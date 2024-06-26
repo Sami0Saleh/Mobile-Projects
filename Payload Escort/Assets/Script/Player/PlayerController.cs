@@ -8,6 +8,7 @@ using System.Linq;
 public class PlayerController : MonoBehaviour, IDamageable
 {
     public PlayerStats playerStats;
+    
 
     [SerializeField] List<IEnemy> _enemies = new List<IEnemy>();
     private GameObject _currentEnemy;
@@ -132,7 +133,7 @@ public class PlayerController : MonoBehaviour, IDamageable
             {
                 transform.LookAt(_currentEnemy.transform);
                 Weapon.StartShot();
-                _animator.SetFloat("AttackSpeed",1);
+                _animator.SetFloat("AttackSpeed",Weapon.FireRate);
                 _animator.SetBool("isShooting", true);
             }
             else
