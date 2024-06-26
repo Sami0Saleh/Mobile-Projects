@@ -123,14 +123,16 @@ public class PlayerStats : MonoBehaviour
 
     public IEnumerator RemoveShield(int value)
     {
-        yield return new WaitForSecondsRealtime(value);
+        new WaitForSecondsRealtime(value);
 
+        yield return null;
     }
 
     public IEnumerator StopInstantKill(int value)
     {
-        yield return new WaitForSecondsRealtime(value);
+        new WaitForSecondsRealtime(value);
         IsInstantKill = false;
+        yield return null;
         
     }
 }

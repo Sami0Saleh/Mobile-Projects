@@ -69,7 +69,7 @@ public class PayloadStats : MonoBehaviour
     }
     public void StartFlee(int value)
     {
-        _payloadController.MovementSpeed += 1;
+        _payloadController.MovementSpeed += value;
         StartCoroutine(StopFlee(value));
     }
 
@@ -77,13 +77,16 @@ public class PayloadStats : MonoBehaviour
 
     public IEnumerator RemoveShield(int value)
     {
-        yield return new WaitForSecondsRealtime(value);
+        new WaitForSecondsRealtime(value);
+
+        yield return null;
 
     }
 
     public IEnumerator StopFlee(int value)
     {
-        yield return new WaitForSecondsRealtime(value);
-        _payloadController.MovementSpeed -= 1;
+        new WaitForSecondsRealtime(2);
+        _payloadController.MovementSpeed -= value;
+        yield return null;
     }
 }

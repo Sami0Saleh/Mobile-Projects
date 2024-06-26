@@ -15,19 +15,19 @@ public class PlayerWeapon : MonoBehaviour
     private int _ammoLeft = 1;
 
     private bool _canShoot = false;
-    private bool _readyToShoot;
+    public bool ReadyToShoot;
 
 
     private RaycastHit _rayHit;
 
     private void Awake()
     {
-        _readyToShoot = true;
+        ReadyToShoot = true;
     }
 
     void Update()
     {
-        if (_canShoot && _readyToShoot)
+        if (_canShoot && ReadyToShoot)
         {
             PerformShot();
         }
@@ -43,7 +43,7 @@ public class PlayerWeapon : MonoBehaviour
     }
     private void PerformShot()
     {
-        _readyToShoot = false;
+        ReadyToShoot = false;
         Vector3 direction = _playerController.transform.forward;
 
         if (Physics.Raycast(transform.position, direction, out _rayHit, _bulletRange))
@@ -67,6 +67,6 @@ public class PlayerWeapon : MonoBehaviour
     }
     private void ResetShot()
     {
-        _readyToShoot = true;
+        ReadyToShoot = true;
     }
 }

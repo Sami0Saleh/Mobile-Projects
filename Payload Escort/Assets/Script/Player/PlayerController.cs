@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         Shoot();
         if (playerStats.IsDoubleShot)
         {
-            Shoot();
+            StartCoroutine(DoubleShot());
         }
         
     }
@@ -132,6 +132,7 @@ public class PlayerController : MonoBehaviour, IDamageable
             {
                 transform.LookAt(_currentEnemy.transform);
                 Weapon.StartShot();
+                _animator.SetFloat("AttackSpeed",Weapon.FireRate);
                 _animator.SetBool("isShooting", true);
             }
             else
@@ -188,11 +189,13 @@ public class PlayerController : MonoBehaviour, IDamageable
             _camTransform.position = transform.position + CamPosition;
         }
     }
-    /*public IEnumerator DoubleShot()
+    public IEnumerator DoubleShot()
     {
-        yield return new WaitForSecondsRealtime(0.5f);
+        new WaitForSecondsRealtime(0.5f);
+        Weapon.ReadyToShoot = true;
         Shoot();
-    }*/
+        yield return null;
+    }
 }
 
 
