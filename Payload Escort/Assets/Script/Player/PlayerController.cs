@@ -76,9 +76,9 @@ public class PlayerController : MonoBehaviour, IDamageable
 
         AdjustCam();
         Shoot();
-        if (PlayerStats.IsDoubleShot)
+        if (playerStats.IsDoubleShot)
         {
-            StartCoroutine(DoubleShot());
+            Shoot();
         }
         
     }
@@ -188,11 +188,11 @@ public class PlayerController : MonoBehaviour, IDamageable
             _camTransform.position = transform.position + CamPosition;
         }
     }
-    public IEnumerator DoubleShot()
+    /*public IEnumerator DoubleShot()
     {
-        yield return new WaitForSecondsRealtime(0.2f);
+        yield return new WaitForSecondsRealtime(0.5f);
         Shoot();
-    }
+    }*/
 }
 
 

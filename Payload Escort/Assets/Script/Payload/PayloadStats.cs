@@ -12,7 +12,7 @@ public class PayloadStats : MonoBehaviour
 
     public int MaxHP = 1000;
     public int CurrentHP;
-    public static bool IsBallistaActive = false; 
+    public bool IsBallistaActive = false; 
 
     private void Awake()
     {

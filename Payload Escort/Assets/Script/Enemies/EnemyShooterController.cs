@@ -186,7 +186,7 @@ public class EnemyShooterController : MonoBehaviour, IEnemy , IDamageable
         if (other.CompareTag("bullet"))
         {
             _bullet = other.GetComponent<Bullet>();
-            if (_bullet.Shooter.CompareTag("Player") && PlayerStats.IsBloodLust)
+            if (_bullet.Shooter.CompareTag("Player") && _playerStats.IsBloodLust)
             {
                 _playerStats.BloodLustHealth(_maxHp * 20 / 100);
             }

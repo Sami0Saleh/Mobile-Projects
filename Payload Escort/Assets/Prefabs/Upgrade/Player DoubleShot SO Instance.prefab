@@ -120,7 +120,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: 6b4afc9c2c8d3e840a8843fb61ee116e, type: 2}
+      - m_Target: {fileID: 11400000, guid: 95625482f64c246468ee5aa2199513d8, type: 2}
         m_TargetAssemblyTypeName: UpgradeItem, Assembly-CSharp
         m_MethodName: ApplyUpgrade
         m_Mode: 1

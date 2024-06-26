@@ -15,14 +15,29 @@ public class NewUpgradeSpawner : MonoBehaviour
     [SerializeField] PlayerStats _playerStats;
     [SerializeField] PayloadStats _payloadStats;
 
+    private int index;
     private int _index1 = -1;
     private int _index2 = -1;
 
     public void SetUpgradesInUI()
     {
-        
 
-        int index = Random.Range(0, oldUpgradeButtons.Count);
+        if (_payloadStats.IsBallistaActive)
+        {
+            index = Random.Range(1, oldUpgradeButtons.Count);
+        }
+        else if (_playerStats.IsBloodLust)
+        {
+            index = Random.Range(0, oldUpgradeButtons.Count - 1);
+        }
+        else if (_payloadStats.IsBallistaActive && _playerStats.IsBloodLust)
+        {
+            index = Random.Range(1, oldUpgradeButtons.Count - 1);
+        }
+        else
+        {
+            index = Random.Range(0, oldUpgradeButtons.Count);
+        }
         _index1 = index;
         foreach (var button in newUpgradeButtons)
         {
@@ -34,7 +49,22 @@ public class NewUpgradeSpawner : MonoBehaviour
             index = Random.Range(0, oldUpgradeButtons.Count);
             while (index == _index1 || index == _index2)
             {
-                index = Random.Range(0, oldUpgradeButtons.Count);
+                if (_payloadStats.IsBallistaActive)
+                {
+                    index = Random.Range(1, oldUpgradeButtons.Count);
+                }
+                else if (_playerStats.IsBloodLust)
+                {
+                    index = Random.Range(0, oldUpgradeButtons.Count - 1);
+                }
+                else if (_payloadStats.IsBallistaActive && _playerStats.IsBloodLust)
+                {
+                    index = Random.Range(1, oldUpgradeButtons.Count - 1);
+                }
+                else
+                {
+                    index = Random.Range(0, oldUpgradeButtons.Count);
+                }
             }
             _index2 = index;
         }

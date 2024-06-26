@@ -72,11 +72,6 @@ public class UpgradeItem : ScriptableObject
                     case UpgradeType.Ballista:
                         Debug.Log("Activating Payload Weapon");
                         _payloadStats.ActiveBallista();
-                        if (PayloadStats.IsBallistaActive)
-                        {
-                            _newUpgradeSpawner.UpgradesSO.RemoveAt(0);
-                            _newUpgradeSpawner.oldUpgradeButtons.RemoveAt(0);
-                        }
                         _newUpgradeSpawner.CloseUpgradeUI();
                         break;
                     case UpgradeType.Shield:

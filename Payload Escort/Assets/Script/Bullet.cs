@@ -62,8 +62,7 @@ public class Bullet : MonoBehaviour
                                 int ran = Random.Range(1, 4);
                                 if (ran == 1)
                                 {
-                                    Debug.Log("InstantKill");
-                                    Destroy(other);
+                                    Destroy(other.gameObject);
                                 }
                                 else
                                 {

@@ -17,9 +17,10 @@ public class PlayerStats : MonoBehaviour
     public int PlayerLevelXP = 0;
     public int PlayerLevelMaxXP;
 
+    public bool IsBloodLust = false;
+    public bool IsDoubleShot = false;
+
     public static bool IsInstantKill = false;
-    public static bool IsBloodLust = false;
-    public static bool IsDoubleShot = false;
 
 
     private void Awake()
