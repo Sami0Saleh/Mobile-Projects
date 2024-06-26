@@ -63,12 +63,12 @@ public class PlayerController : MonoBehaviour, IDamageable
             _isMoving = true;
             Quaternion targetRotation = Quaternion.LookRotation(inputDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
-            _animator.SetBool("isFWD", true);
+            _animator.SetBool("isMoving", true);
         }
         else
         {
             _isMoving = false;
-            _animator.SetBool("isFWD", false);
+            _animator.SetBool("isMoving", false);
         }
 
         Vector3 movement = inputDirection * _moveSpeed * Time.deltaTime;
@@ -132,7 +132,7 @@ public class PlayerController : MonoBehaviour, IDamageable
             {
                 transform.LookAt(_currentEnemy.transform);
                 Weapon.StartShot();
-                _animator.SetFloat("AttackSpeed",Weapon.FireRate);
+                _animator.SetFloat("AttackSpeed",1);
                 _animator.SetBool("isShooting", true);
             }
             else
