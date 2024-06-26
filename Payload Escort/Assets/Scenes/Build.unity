@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3996,6 +3996,7 @@ MonoBehaviour:
   _playerController: {fileID: 1155928637}
   _playerTransform: {fileID: 1155928639}
   _payloadTransform: {fileID: 8642310968773524846}
+  _playerStats: {fileID: 0}
 --- !u!1 &781634894
 GameObject:
   m_ObjectHideFlags: 0
@@ -5537,6 +5538,7 @@ MonoBehaviour:
   - {fileID: 1068966561}
   - {fileID: 1469520312}
   _playerStats: {fileID: 1982475520}
+  _payloadStats: {fileID: 0}
 --- !u!4 &1188196356 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1738934107092379505, guid: dc7efb2d0f990634593a685ad992a158,
