@@ -62,10 +62,11 @@ public class PayloadStats : MonoBehaviour
         _payloadController.Weapon.FireRate -= value;
     }
 
-    public void AddSheild(int value)
+    public void AddSheild(int value, GameObject shields)
     {
-
-        StartCoroutine(RemoveShield(value));
+        shields.transform.parent = transform;
+        shields.transform.position = transform.position;
+        //StartCoroutine(RemoveShield(value, shields));
     }
     public void StartFlee(int value)
     {
@@ -85,7 +86,7 @@ public class PayloadStats : MonoBehaviour
 
     public IEnumerator StopFlee(int value)
     {
-        new WaitForSecondsRealtime(2);
+        new WaitForSecondsRealtime(5);
         _payloadController.MovementSpeed -= value;
         yield return null;
     }

@@ -33,7 +33,7 @@ public class PayloadController : MonoBehaviour, IDamageable
 
     private void Awake()
     {
-        _payloadIndicator.SetTarget(transform.position);
+        _payloadIndicator.SetTarget(transform.position.normalized);
     }
     void Update()
     {

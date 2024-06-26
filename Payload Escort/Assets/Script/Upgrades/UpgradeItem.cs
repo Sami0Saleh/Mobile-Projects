@@ -77,7 +77,8 @@ public class UpgradeItem : ScriptableObject
                         break;
                     case UpgradeType.Shield:
                         Debug.Log("Shield");
-                        _payloadStats.AddSheild((int)value);
+                        GameObject shields = Instantiate(prefab);
+                        _payloadStats.AddSheild((int)value, shields);
                         _newUpgradeSpawner.CloseUpgradeUI();
                         break;
                     case UpgradeType.Flee:
