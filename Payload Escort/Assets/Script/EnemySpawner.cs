@@ -7,25 +7,27 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] Transform _payload;
     [SerializeField] GameObject[] _enemies;
+    [SerializeField] Transform[] _spawnPoints;
+
     private int _enemyCount = 0;
-    void Update()
+    public int startSpawnTime = 10;
+    public int spawnTime = 5;
+
+
+    void Start()
     {
-        StartCoroutine(Spawn());
+        InvokeRepeating("Spawn", startSpawnTime, spawnTime);
     }
 
-    public IEnumerator Spawn()
+    void Spawn()
     {
-        float distance = Vector3.Distance(transform.position, _payload.position);
-        while (distance == 5)
-        {
-            int randomEnemy = Random.Range(0, _enemies.Length);
-            float randomPos = Random.Range(-2, 2);
-            Instantiate(_enemies[randomEnemy], new Vector3(transform.position.x + randomPos, 
-                transform.position.y,transform.position.z + randomPos), Quaternion.identity);
-            _enemyCount++;
-            distance = Vector3.Distance(transform.position, _payload.position);
-            yield return new WaitForSecondsRealtime(10);
-        }
+        int spawnPoints = Random.Range(0, _spawnPoints.Length);
+        int randomEnemy = Random.Range(0, _enemies.Length);
+        float randomPos = Random.Range(-2, 2);
+        
+        if (_enemyCount == 5) return;
 
+        Instantiate(_enemies[randomEnemy], _spawnPoints[spawnPoints].position, Quaternion.identity);
+        _enemyCount++;
     }
 }
