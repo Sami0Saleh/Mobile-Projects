@@ -53,7 +53,8 @@ public class UpgradeItem : ScriptableObject
                         break;
                     case UpgradeType.Shield:
                         Debug.Log("Shield");
-                        _playerStats.AddSheild((int)value);
+                        GameObject shields = Instantiate(prefab);
+                        _playerStats.AddSheild((int)value, shields);
                         _newUpgradeSpawner.CloseUpgradeUI();
                         break;
                     case UpgradeType.DoubleShot:

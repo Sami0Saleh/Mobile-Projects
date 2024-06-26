@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 598756be618c668498e1785b7f305495, type: 3}
   m_Name: UpgradePayloadShield
   m_EditorClassIdentifier: 
-  UpgradeSprite: {fileID: 21300000, guid: dc39f662bedf95042839296cfd817616, type: 3}
+  UpgradeSprite: {fileID: 21300000, guid: 7278097c3f6b81743b3ed7c0960a964a, type: 3}
   itemName: 
   description: 
   upgradeTarget: 1

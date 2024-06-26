@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 598756be618c668498e1785b7f305495, type: 3}
   m_Name: UpgradePlayerDoubleShot
   m_EditorClassIdentifier: 
-  UpgradeSprite: {fileID: 0}
+  UpgradeSprite: {fileID: 21300000, guid: cbfac522d9615a747bc8c5653ad751e9, type: 3}
   itemName: 
   description: 
   upgradeTarget: 0

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 598756be618c668498e1785b7f305495, type: 3}
   m_Name: UpgradePlayerInstantKill
   m_EditorClassIdentifier: 
-  UpgradeSprite: {fileID: 21300000, guid: f054197ef28924b4986cbd91de2ab054, type: 3}
+  UpgradeSprite: {fileID: 21300000, guid: d53fbad391ea50b408d941e1f77a6dd3, type: 3}
   itemName: 
   description: 
   upgradeTarget: 0

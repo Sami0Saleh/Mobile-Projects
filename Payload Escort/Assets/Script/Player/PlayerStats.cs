@@ -94,10 +94,11 @@ public class PlayerStats : MonoBehaviour
         _levelUIManager.UpdatePlayerCoins(LevelCoins);
     }
 
-    public void AddSheild(int value)
+    public void AddSheild(int value, GameObject shields)
     {
-
-        StartCoroutine(RemoveShield(value));
+        shields.transform.parent = transform;
+        shields.transform.position = transform.position;
+        //StartCoroutine(RemoveShield(value, shields));
     }
 
     public void BloodLust()
@@ -113,7 +114,7 @@ public class PlayerStats : MonoBehaviour
     public void InstantKill(int value)
     {
         IsInstantKill = true;
-        StartCoroutine(RemoveShield(value));
+        StartCoroutine(StopInstantKill(value));
     }
 
     public void UpdatePlayerMetaCoins()
@@ -121,10 +122,11 @@ public class PlayerStats : MonoBehaviour
         Meta.Coins += LevelCoins;
     }
 
-    public IEnumerator RemoveShield(int value)
+    public IEnumerator RemoveShield(int value, GameObject shields)
     {
         new WaitForSecondsRealtime(value);
-
+        Destroy(shields);
+        
         yield return null;
     }
 

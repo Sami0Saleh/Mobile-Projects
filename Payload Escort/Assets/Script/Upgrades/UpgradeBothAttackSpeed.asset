@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: UpgradeBothAttackSpeed
   m_EditorClassIdentifier: 
   UpgradeSprite: {fileID: 0}
-  itemName: fire
-  description: payload
+  itemName: 
+  description: 
   upgradeTarget: 2
   upgradeType: 2
   prefab: {fileID: 1437371839311850750, guid: ad8e84004b5f3104a9cdba0bfb16a556, type: 3}

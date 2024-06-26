@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 598756be618c668498e1785b7f305495, type: 3}
   m_Name: UpgradePlayeBloodLust
   m_EditorClassIdentifier: 
-  UpgradeSprite: {fileID: 21300000, guid: 010a6e5305fa7004f89c5d317b7b47d4, type: 3}
+  UpgradeSprite: {fileID: 21300000, guid: ea8827041e9f9cb49ba39cd62ca64eec, type: 3}
   itemName: 
   description: 
   upgradeTarget: 0

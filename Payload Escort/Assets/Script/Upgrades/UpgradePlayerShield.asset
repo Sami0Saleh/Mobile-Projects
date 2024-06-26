@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 598756be618c668498e1785b7f305495, type: 3}
   m_Name: UpgradePlayerShield
   m_EditorClassIdentifier: 
-  UpgradeSprite: {fileID: 21300000, guid: dc39f662bedf95042839296cfd817616, type: 3}
+  UpgradeSprite: {fileID: 21300000, guid: 716ce6fe0b999e24b849375aa5740571, type: 3}
   itemName: 
   description: 
   upgradeTarget: 0
   upgradeType: 5
-  prefab: {fileID: 5635814282387418850, guid: 48f059958eda85247a9d065d5d362b1e, type: 3}
-  value: 2
+  prefab: {fileID: 8385950353041631153, guid: 3414b72e0cbe94040b791f52bd92b9f8, type: 3}
+  value: 5
