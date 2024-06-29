@@ -18,4 +18,4 @@ MonoBehaviour:
   upgradeTarget: 1
   upgradeType: 7
   prefab: {fileID: 30692002208603007, guid: cacf052813d0da243909b35b9b11fd1e, type: 3}
-  value: 1
+  value: 2

@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UI;
-using TMPro;
 
 public class EnemyShooterController : MonoBehaviour, IEnemy , IDamageable
 {
@@ -17,8 +15,9 @@ public class EnemyShooterController : MonoBehaviour, IEnemy , IDamageable
     [SerializeField] EnemyWeapon _enemyWeapon;
     [SerializeField] LayerMask _targetLayer;
     [SerializeField] NavMeshAgent _agent;
-    [SerializeField] TextMeshProUGUI _enemyHPText;
-    [SerializeField] Slider _enemyHPSlider;
+
+    private HealthBar _healthBar;
+    private GameObject _healthBarObject;
 
     private int _maxHp = 7;
     public int _currentHp;
@@ -42,10 +41,13 @@ public class EnemyShooterController : MonoBehaviour, IEnemy , IDamageable
     {
         IEnemy.EnemyList.Remove(this);
     }
-    private void Start()
+    private void Awake()
     {
         _currentHp = _maxHp;
-        UpdateHP(_currentHp, _maxHp);
+        _healthBarObject = Instantiate(Resources.Load("EnemyHealthBar"), FindObjectOfType<Canvas>().transform) as GameObject;
+        _healthBar = _healthBarObject.GetComponent<HealthBar>();
+        _healthBar.Initialize(transform);
+        _healthBar.UpdateHealth(_currentHp, _maxHp);
         if (_payloadTransform != null)
         {
             MoveNM(_payloadTransform); 
@@ -133,13 +135,15 @@ public class EnemyShooterController : MonoBehaviour, IEnemy , IDamageable
         _currentHp -= damage;
         if (_currentHp <= 0)
         {
+            _currentHp = 0;
             Die();
         }
-        UpdateHP(_currentHp, _maxHp);
+        _healthBar.UpdateHealth(_currentHp, _maxHp);
     }
     public void Die()
     {
         DropObjects();
+        Destroy(_healthBarObject);
         Destroy(gameObject);
     }
     void DropObjects()
@@ -175,12 +179,7 @@ public class EnemyShooterController : MonoBehaviour, IEnemy , IDamageable
     {
         _payloadTransform = payloadTransform;
     }
-    public void UpdateHP(int currentHP, int maxHP)
-    {
-        _enemyHPText.text = currentHP.ToString();
-        _enemyHPSlider.maxValue = maxHP;
-        _enemyHPSlider.value = currentHP;
-    }
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("bullet"))

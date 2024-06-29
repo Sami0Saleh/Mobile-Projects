@@ -4,6 +4,7 @@ using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class PayloadController : MonoBehaviour, IDamageable
 {
@@ -11,13 +12,14 @@ public class PayloadController : MonoBehaviour, IDamageable
 
     [SerializeField] Transform _playerTransform;
 
-    [SerializeField] PayloadIndicator _payloadIndicator;
 
     public PayloadWeapon Weapon;
 
+    private Tweener _payloadTweener;
+
     public float MovementSpeed;
     [SerializeField] float speedMultiplier;
-    [SerializeField] List<Waypoint> waypoints;
+    [SerializeField] List<Transform> waypoints;
     private int currentWaypointIndex = 0;
     public bool LastWaypoint = false;
 
@@ -31,11 +33,52 @@ public class PayloadController : MonoBehaviour, IDamageable
     
     public static bool IsPayloadDestoried;
 
-    private void Awake()
+    void Start()
     {
-        _payloadIndicator.SetTarget(transform.position.normalized);
+        StartPayloadMovement();
     }
-    void Update()
+
+    void StartPayloadMovement()
+    {
+        if (waypoints != null && waypoints.Count > 0)
+        {
+            Vector3[] pathPositions = new Vector3[waypoints.Count];
+            for (int i = 0; i < waypoints.Count; i++)
+            {
+                pathPositions[i] = waypoints[i].position;
+            }
+
+            _payloadTweener = transform.DOPath(pathPositions, waypoints.Count / MovementSpeed)
+                .SetSpeedBased()
+                .SetEase(Ease.InOutSine)
+                .SetLookAt(0.01f, null, null)
+                .OnWaypointChange(OnWaypointChange)
+                .OnComplete(OnPathComplete);
+        }
+    }
+
+    void OnWaypointChange(int waypointIndex)
+    {
+        // Handle waypoint change logic if needed
+    }
+
+    void OnPathComplete()
+    {
+        LastWaypoint = true;
+        // Handle any logic that should happen when the path is complete
+    }
+    private void OnDrawGizmos()
+    {
+        if (waypoints != null && waypoints.Count > 0)
+        {
+            Gizmos.color = Color.green;
+            for (int i = 0; i < waypoints.Count - 1; i++)
+            {
+                Gizmos.DrawLine(waypoints[i].position, waypoints[i + 1].position);
+            }
+        }
+    }
+    /*void Update()
     {
         if (currentWaypointIndex < waypoints.Count)
         {
@@ -71,7 +114,7 @@ public class PayloadController : MonoBehaviour, IDamageable
         {
             currentWaypointIndex++;
         }
-    }
+    }*/
 
     public void TakeMeleeDamage(int damage)
     {
@@ -89,7 +132,7 @@ public class PayloadController : MonoBehaviour, IDamageable
         SceneManager.LoadScene(0);
     }
 
-    private void OnDrawGizmos()
+   /* private void OnDrawGizmos()
     {
         if (waypoints != null && waypoints.Count > 0)
         {
@@ -99,7 +142,7 @@ public class PayloadController : MonoBehaviour, IDamageable
                 Gizmos.DrawLine(waypoints[i].waypointTransform.position, waypoints[i + 1].waypointTransform.position);
             }
         }
-    }
+    }*/
 
     /*void Update()
     {
@@ -187,11 +230,11 @@ public class PayloadController : MonoBehaviour, IDamageable
     
     public void TakeMeleeDamage(int damage)
     {
-        payloadStats.TakeMeleeDamage(damage);
+        _payloadStats.TakeMeleeDamage(damage);
     }
     public void TakeRangedDamage(int damage)
     {
-        payloadStats.TakeRangeDamage(damage);
+        _payloadStats.TakeRangeDamage(damage);
     }
     public void DestroyPayload()
     {

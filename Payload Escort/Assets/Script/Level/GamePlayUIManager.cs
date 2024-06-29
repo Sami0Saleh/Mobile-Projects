@@ -8,26 +8,11 @@ using TMPro;
 public class GamePlayUIManager : MonoBehaviour
 {
     [SerializeField] GameObject _upgrades;
-    [SerializeField] TextMeshProUGUI _playerHPText;
-    [SerializeField] TextMeshProUGUI _payloadHPText;
     [SerializeField] TextMeshProUGUI _playerLevelText;
     [SerializeField] TextMeshProUGUI _playerCoinsText;
-    [SerializeField] Slider _playerHPSlider;
-    [SerializeField] Slider _payloadHPSlider;
     [SerializeField] Slider _playerLevelSlider;
     
-    public void UpdatePlayerHP(int playerCurrentHP, int playerMaxHP)
-    {
-        _playerHPText.text = playerCurrentHP.ToString();
-        _playerHPSlider.maxValue = playerMaxHP;
-        _playerHPSlider.value = playerCurrentHP;
-    }
-    public void UpdatePayloadHP(int payloadCurrentHP, int payloadMaxHP)
-    {
-        _payloadHPText.text = payloadCurrentHP.ToString();
-        _payloadHPSlider.maxValue = payloadMaxHP;
-        _payloadHPSlider.value = payloadCurrentHP;
-    }
+    
     public void UpdatePlayerLevel(int playerLevel)
     {
         _playerLevelText.text = playerLevel.ToString();

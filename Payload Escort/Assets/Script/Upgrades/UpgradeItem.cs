@@ -83,7 +83,7 @@ public class UpgradeItem : ScriptableObject
                         break;
                     case UpgradeType.Flee:
                         Debug.Log("Flee");
-                        _payloadStats.StartFlee((int)value);
+                        _payloadStats.StartFlee(value);
                         _newUpgradeSpawner.CloseUpgradeUI();
                         break;
                     default:

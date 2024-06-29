@@ -9,6 +9,8 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] NewUpgradeSpawner _newUpgradeSpawner;
     //[SerializeField] UpgradeSpawner _upgradeSpawner;
 
+    private HealthBar _healthBar;
+    GameObject _healthBarObject;
 
     public int MaxHP = 1000;
     public int CurrentHP;
@@ -27,7 +29,10 @@ public class PlayerStats : MonoBehaviour
     {
         CurrentHP = MaxHP;
         PlayerLevelMaxXP = 25;
-        _levelUIManager.UpdatePlayerHP(CurrentHP, MaxHP);
+        _healthBarObject = Instantiate(Resources.Load("HealthBar"), FindObjectOfType<Canvas>().transform) as GameObject;
+        _healthBar = _healthBarObject.GetComponent<HealthBar>();
+        _healthBar.Initialize(transform);
+        _healthBar.UpdateHealth(CurrentHP, MaxHP);
         _levelUIManager.UpdatePlayerLevel(PlayerLevel);
         _levelUIManager.UpdatePlayerXP(PlayerLevelXP, PlayerLevelMaxXP);
         _levelUIManager.UpdatePlayerCoins(LevelCoins);
@@ -40,7 +45,7 @@ public class PlayerStats : MonoBehaviour
         {
             _playerController.RespawnPlayer();
         }
-        _levelUIManager.UpdatePlayerHP(CurrentHP, MaxHP);
+        _healthBar.UpdateHealth(CurrentHP, MaxHP);
     }
     public void TakeRangeDamage(int damage)
     {
@@ -49,7 +54,7 @@ public class PlayerStats : MonoBehaviour
         {
             _playerController.RespawnPlayer();
         }
-        _levelUIManager.UpdatePlayerHP(CurrentHP, MaxHP);
+        _healthBar.UpdateHealth(CurrentHP, MaxHP);
     }
     public void UpdatePlayerLevel()
     {
@@ -71,7 +76,7 @@ public class PlayerStats : MonoBehaviour
     {
         MaxHP += value;
         CurrentHP += value;
-        _levelUIManager.UpdatePlayerHP(CurrentHP, MaxHP);
+        _healthBar.UpdateHealth(CurrentHP, MaxHP);
     }
     public void BloodLustHealth(int value)
     {
@@ -83,7 +88,7 @@ public class PlayerStats : MonoBehaviour
                 CurrentHP = MaxHP;
             }
         }
-        _levelUIManager.UpdatePlayerHP(CurrentHP, MaxHP);
+        _healthBar.UpdateHealth(CurrentHP, MaxHP);
     }
     public void UpdateFireRate(float value)
     {

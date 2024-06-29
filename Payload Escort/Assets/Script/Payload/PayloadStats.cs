@@ -10,6 +10,9 @@ public class PayloadStats : MonoBehaviour
     [SerializeField] NewUpgradeSpawner _newUpgradeSpawner;
     [SerializeField] GameObject Ballista;
 
+    private HealthBar _healthBar;
+    GameObject _healthBarObject;
+
     public int MaxHP = 1000;
     public int CurrentHP;
     public bool IsBallistaActive = false; 
@@ -17,7 +20,10 @@ public class PayloadStats : MonoBehaviour
     private void Awake()
     {
         CurrentHP = MaxHP;
-        _levelUIManager.UpdatePayloadHP(CurrentHP, MaxHP);
+        _healthBarObject = Instantiate(Resources.Load("HealthBar"), FindObjectOfType<Canvas>().transform) as GameObject;
+        _healthBar = _healthBarObject.GetComponent<HealthBar>();
+        _healthBar.Initialize(transform);
+        _healthBar.UpdateHealth(CurrentHP, MaxHP);
     }
     
     public void TakeMeleeDamage(int damage)
@@ -26,9 +32,10 @@ public class PayloadStats : MonoBehaviour
         if (CurrentHP <= 0)
         {
             CurrentHP = 0;
+            Destroy(_healthBarObject);
             _payloadController.DestroyPayload();
         }
-        _levelUIManager.UpdatePayloadHP(CurrentHP, MaxHP);
+        _healthBar.UpdateHealth(CurrentHP, MaxHP);
     }
     public void TakeRangeDamage(int damage)
     {
@@ -36,9 +43,10 @@ public class PayloadStats : MonoBehaviour
         if (CurrentHP <= 0)
         {
             CurrentHP = 0;
+            Destroy(_healthBarObject);
             _payloadController.DestroyPayload();
         }
-        _levelUIManager.UpdatePayloadHP(CurrentHP, MaxHP);
+        _healthBar.UpdateHealth(CurrentHP, MaxHP);
     }
 
     public void ActiveBallista()
@@ -55,7 +63,7 @@ public class PayloadStats : MonoBehaviour
     {
         MaxHP += value;
         CurrentHP += value;
-        _levelUIManager.UpdatePayloadHP(CurrentHP, MaxHP);
+        _healthBar.UpdateHealth(CurrentHP, MaxHP);
     }
     public void UpdateFireRate(float value)
     {
@@ -68,9 +76,9 @@ public class PayloadStats : MonoBehaviour
         shields.transform.position = transform.position;
         //StartCoroutine(RemoveShield(value, shields));
     }
-    public void StartFlee(int value)
+    public void StartFlee(float value)
     {
-        _payloadController.MovementSpeed += value;
+        _payloadController.MovementSpeed ++;
         StartCoroutine(StopFlee(value));
     }
 
@@ -84,7 +92,7 @@ public class PayloadStats : MonoBehaviour
 
     }
 
-    public IEnumerator StopFlee(int value)
+    public IEnumerator StopFlee(float value)
     {
         new WaitForSecondsRealtime(5);
         _payloadController.MovementSpeed -= value;
